@@ -82,17 +82,17 @@ public class ServerSkeleton{
     private NettyMessagingService ms;
 
     // Guião 5
-    private boolean no_st;
+    //private boolean no_st;
     private int last_msg_seen;
-    private SpreadGroup sg;
-    private LinkedList<MyPair<Address, BankUpdate>> unanswered_reqs;
+    //private SpreadGroup sg;
+    //private LinkedList<MyPair<Address, BankUpdate>> unanswered_reqs;
 
     // Guião 7
     private Map<Integer, Map<Integer, Float>> active_requests;
-    private int active_threads;
-    private int last_batch;
-    private ReentrantLock act_req_lock;
-    private ReentrantLock act_thr_lock;
+    //private int active_threads;
+    //private int last_batch;
+    //private ReentrantLock act_req_lock;
+    //private ReentrantLock act_thr_lock;
 
     private BankInterface Bank;
 
@@ -112,28 +112,28 @@ public class ServerSkeleton{
                                                    Bank.class,
                                                    ArrayList.class,
                                                    QueuedRequest.class,
-                                                   FullBankTransfer.class,
+                                                   //FullBankTransfer.class,
                                                    MyPair.class,
                                                    Integer.class,
                                                    Address.class,
-                                                   BankUpdate.class
+                                                   //BankUpdate.class
 
                                         ).build();
-        this.es   = Executors.newScheduledThreadPool(1);
+        this.es        = Executors.newScheduledThreadPool(1);
 
         this.Bank = new Bank();
 
-        this.history         = new LinkedList<>();
-        this.leader_queue    = new LinkedList<>();
-        this.unanswered_reqs = new LinkedList<>();
+        //this.history         = new LinkedList<>();
+        //this.leader_queue    = new LinkedList<>();
+        //this.unanswered_reqs = new LinkedList<>();
         this.active_requests = new HashMap<>();
 
         this.ms    = null;
-        this.no_st = true;
+        //this.no_st = true;
 
-        this.act_req_lock    = new ReentrantLock();
-        this.act_thr_lock    = new ReentrantLock();
-        this.active_threads  = 0;
+        //this.act_req_lock    = new ReentrantLock();
+        //this.act_thr_lock    = new ReentrantLock();
+        //this.active_threads  = 0;
 
         try
         {
@@ -145,10 +145,28 @@ public class ServerSkeleton{
             this.last_msg_seen = 0;
         }
 
+
+        // As all Spread operations are asynchronous, everything they (eventually) return will need to be stored in a
+        // CompletableFuture, and what actions would come after it is completed will need to be supplied right away
+        // this will also apply to movements, interests and transfers!
+        CompletableFuture<Boolean> fut_leader = new CompletableFuture<>()
+                                                    .thenApply( is_leader -> {
+                                                        if ( (Boolean) is_leader )
+                                                        {
+                                                            start_atomix();
+                                                        }
+                                                        else
+                                                            ready = false;
+                                                    });
+
+        CompletableFuture<Void> updated = new CompletableFuture<>()
+                                                    .thenApply( updated -> {
+                                                       if ( spread_gv.is_ready() )
+                                                           start_atomix();
+                                                    });
+
         // Initialize Spread Connection
-        this.spread_gv = new SpreadMiddleware(port, connect_to);
-
-
+        this.spread_gv = new SpreadMiddleware(port, connect_to, last_msg_seen, fut_leader, updated);
 
 
         // So it writes state when killed
@@ -160,7 +178,7 @@ public class ServerSkeleton{
         });
 
         es.scheduleAtFixedRate(() -> {
-            if(leader)
+            if()
                 System.out.println("I'm the leader man!");
             else
                 System.out.println("Someone else is the leader man");
@@ -178,15 +196,7 @@ public class ServerSkeleton{
 
     private void movement_handler(Address a, byte[] m)
     {
-        // THR CRITICAL ZONE BEGIN
-        act_thr_lock.lock();
-
-        active_threads++;
-
-        last_batch = active_threads == 1 ? last_batch + 1 : last_batch; // if there's only one thread active,
-
-        act_thr_lock.unlock();
-        //THR CRITICAL ZONE END
+        last_msg_seen++;
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -203,50 +213,10 @@ public class ServerSkeleton{
         if( flag )
         {
 
-            float bal_after = this.Bank.balance(accountId); // PODE ESCAXAR E PROVAVELMENTE VAI
-
-            BankUpdate su  = new BankUpdate(accountId, bal_after, req_id);
-            MyPair<Address, BankUpdate> sump = new MyPair<>(a, su);
-
-
-            // CRITICAL ZONE BEGIN
-            act_req_lock.lock();
-
-            last_msg_seen++;
-
-            // that means we're starting a new batch
-
-            history.add(su);
-
-            if( history.size() == MAX_HIST_SIZE ) history.removeFirst();
-
-            unanswered_reqs.add(sump);
-
-
-            if (active_threads  == 1) // meaning only this thread is doing stuff, we can be sure that the is a state
-                                      // update we can send
-            {
-                // Notify everyone else about the Movement before replying
-                SpreadMessage su_msg = new SpreadMessage();
-
-                su_msg.setData(s.encode(active_requests));
-                su_msg.setType(state_update);
-                su_msg.setReliable();
-                su_msg.setSafe(); // VERY IMPORTANT
-                su_msg.addGroup(sg);
-
-                try
-                {
-                    sconn.multicast(su_msg);
-                } catch (SpreadException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            active_threads--;
-
-            act_req_lock.unlock();
-            // CRITICAL ZONE END
+            CompletableFuture<Long> cf = new CompletableFuture<>()
+                                            .thenApply((id) -> {
+                                                System.out.println("cona");
+                                            });
 
         }
         else {
