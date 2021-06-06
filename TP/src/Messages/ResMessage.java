@@ -9,6 +9,11 @@ public class ResMessage<T> {
         this.response = response;
     }
 
+    public ResMessage(int reqId)
+    {
+        this.reqId = reqId;
+    }
+
     public int getReqId() {
         return reqId;
     }

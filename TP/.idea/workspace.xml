@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Bank/src/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Server/LockFreeAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Server/LockFreeBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/server_state_12345.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bank/src/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bank/src/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/ClientStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupCommMiddleware/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadMiddleware.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Messages/ResMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Messages/ResMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Other/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Other/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ServerSkeleton.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/classes/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="171" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Server/ServerSkeleton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="311" column="14" selection-start-line="311" selection-start-column="14" selection-end-line="311" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3923#3924#0" expanded="true" />
+                <element signature="e#4007#4008#0" expanded="true" />
+                <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
+                <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
+                <element signature="method#history_handler#0;class#ServerSkeleton#0" />
+                <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
+                <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/SpreadMiddleware.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="205" column="82" selection-start-line="205" selection-start-column="82" selection-end-line="205" selection-end-column="82" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#MyPair#0" />
+                <element signature="e#4808#5503#1" />
+                <element signature="e#5581#6373#1" />
+                <element signature="e#10127#11547#1" />
+                <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
+                <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
+                <element signature="method#push_to_history#0;class#SpreadMiddleware#0" />
+                <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
+                <element signature="method#getLast_msg_seen#0;class#SpreadMiddleware#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BankClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Other/Transaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-396">
+              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#Transaction#0;class#Transaction#0" />
+                <element signature="method#Transaction#1;class#Transaction#0" />
+                <element signature="method#Transaction#2;class#Transaction#0" />
+                <element signature="method#toString#0;class#Transaction#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>case</find>
+      <find>system</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Guiao1.iml" />
+        <option value="$PROJECT_DIR$/src/Message.java" />
+        <option value="$PROJECT_DIR$/src/Messages/Message.java" />
+        <option value="$PROJECT_DIR$/src/BankRequester.java" />
+        <option value="$PROJECT_DIR$/src/Priest/Client.java" />
+        <option value="$PROJECT_DIR$/src/Priest/BankAccount.java" />
+        <option value="$PROJECT_DIR$/src/Priest/Server.java" />
+        <option value="$PROJECT_DIR$/src/BankServer.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../../Guiao4/Guiao4/src/Server/ServerSkeleton.java" />
+        <option value="$PROJECT_DIR$/src/teste.java" />
+        <option value="$PROJECT_DIR$/src/Messages/ReqMessage.java" />
+        <option value="$PROJECT_DIR$/src/Other.html" />
+        <option value="$PROJECT_DIR$/src/Bank/include/BankInterface.java" />
+        <option value="$PROJECT_DIR$/src/GroupCommMiddleware/GMSM.java" />
+        <option value="$PROJECT_DIR$/src/Messages/ResMessage.java" />
+        <option value="$PROJECT_DIR$/src/Other/ListPacket.java" />
+        <option value="$PROJECT_DIR$/src/Other/Transaction.java" />
+        <option value="$PROJECT_DIR$/src/GroupCommMiddleware/SpreadMiddleware.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/LockFreeAccount.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/LockFreeBank.java" />
+        <option value="$PROJECT_DIR$/src/Server/LockFreeAccount.java" />
+        <option value="$PROJECT_DIR$/src/Server/LockFreeBank.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/Account.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/Bank.java" />
+        <option value="$PROJECT_DIR$/src/Server/SpreadMiddleware.java" />
+        <option value="$PROJECT_DIR$/src/BankClient.java" />
+        <option value="$PROJECT_DIR$/src/Client/ClientStub.java" />
+        <option value="$PROJECT_DIR$/src/Server/ServerSkeleton.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="atomix" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1440" />
+    <option name="y" value="23" />
+    <option name="width" value="1366" />
+    <option name="height" value="745" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <flattenPackages ProjectPane="false" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="save" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowAnt Build.ShowToolbar" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="Application" />
+      </set>
+    </option>
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+    <option name="contentProportion" value="0.14197531" />
+  </component>
+  <component name="RunManager" selected="Application.SingleClientA">
+    <configuration name="Server_A" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankServer" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12345 4803" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server_B" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankServer" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12346 4804" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server_C" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankServer" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12347 4805" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleClientA" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankClient" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12333" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleClientB" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankClient" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12334" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleClientC" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankClient" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12335" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleClientD" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankClient" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12336" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleClientE" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankClient" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12337" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Clients" type="CompoundRunConfigurationType">
+      <toRun name="SingleClientB" type="Application" />
+      <toRun name="SingleClientC" type="Application" />
+      <toRun name="SingleClientE" type="Application" />
+      <toRun name="SingleClientD" type="Application" />
+      <toRun name="SingleClientA" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Servers" type="CompoundRunConfigurationType">
+      <toRun name="Server_C" type="Application" />
+      <toRun name="Server_B" type="Application" />
+      <toRun name="Server_A" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TwoBrothers" type="CompoundRunConfigurationType">
+      <toRun name="SingleClientB" type="Application" />
+      <toRun name="SingleClientA" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType">
+      <toRun name="SingleClientB" type="Application" />
+      <toRun name="SingleClientA" type="Application" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Server_A" />
+      <item itemvalue="Application.Server_B" />
+      <item itemvalue="Application.Server_C" />
+      <item itemvalue="Application.SingleClientA" />
+      <item itemvalue="Application.SingleClientB" />
+      <item itemvalue="Application.SingleClientC" />
+      <item itemvalue="Application.SingleClientD" />
+      <item itemvalue="Application.SingleClientE" />
+      <item itemvalue="Compound.Clients" />
+      <item itemvalue="Compound.TwoBrothers" />
+      <item itemvalue="Compound.Servers" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="" />
+      <created>1614620046432</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614620046432</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit (contains stuff from the various practical guides plus a few changes)">
+      <created>1622681466192</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622681466195</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Progress in the SpreadMiddleware">
+      <created>1622809808080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622809808080</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1440" y="23" width="1366" height="745" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15483384" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="DB Browser" order="3" show_stripe_button="false" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="UI Designer" order="7" />
+      <window_info id="simpleUML" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32819074" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32465544" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32924962" />
+      <window_info anchor="bottom" id="DB Execution Console" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32678822" />
+      <window_info anchor="bottom" id="Run Dashboard" order="12" weight="0.4226646" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32930514" />
+      <window_info anchor="right" id="Mongo Explorer" order="6" show_stripe_button="false" weight="0.32930514" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32854986" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1509299" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="DB Browser" order="3" show_stripe_button="false" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="UI Designer" order="7" />
+      <window_info id="simpleUML" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32819074" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32465544" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32924962" />
+      <window_info anchor="bottom" id="DB Execution Console" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32678822" />
+      <window_info anchor="bottom" id="Run Dashboard" order="12" visible="true" weight="0.28330997" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32930514" />
+      <window_info anchor="right" id="Mongo Explorer" order="6" show_stripe_button="false" weight="0.32930514" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32930514" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit (contains stuff from the various practical guides plus a few changes)" />
+    <MESSAGE value="Progress in the SpreadMiddleware" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress in the SpreadMiddleware" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/atomix$SingleClientB.ic" NAME="SingleClientB Coverage Results" MODIFIED="1615229105002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/atomix$Server_B.ic" NAME="Server_B Coverage Results" MODIFIED="1622932265390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/atomix$Server_A.ic" NAME="Server_A Coverage Results" MODIFIED="1622994385367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Tester.java" />
+    <entry file="file://$PROJECT_DIR$/src/Messages/ReqMessage copy.java" />
+    <entry file="file://$USER_HOME$/4_1/Fundamentos de Sistemas Distribuídos/FSD_TP/src/ClientSide/ClientStub.java" />
+    <entry file="file://$PROJECT_DIR$/src/BankRequester.java" />
+    <entry file="file://$PROJECT_DIR$/src/RemoteBankRequester.java" />
+    <entry file="file://$USER_HOME$/Downloads/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="34" column="15" lean-forward="true" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/BankAccount.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Priest/BankAccount.java" />
+    <entry file="file://$PROJECT_DIR$/src/Priest/Client.java" />
+    <entry file="file://$PROJECT_DIR$/src/Priest/Server.java" />
+    <entry file="file://$PROJECT_DIR$/../../Guiao3/Guiao3/src/BankServer.java" />
+    <entry file="file://$PROJECT_DIR$/../../Guiao1/Guiao1/src/Server/ServerSkeleton.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Guiao1.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-61">
+          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Guiao4/Guiao4/src/Server/ServerSkeleton.java" />
+    <entry file="file://$PROJECT_DIR$/../../Guiao3/Guiao3/src/Server/ServerSkeleton.java" />
+    <entry file="file://$USER_HOME$/3_1/Sistemas Distribuídos/Outros/Estudo_Recurso/Guiao_5/src/Ex1.java" />
+    <entry file="file://$PROJECT_DIR$/src/teste.java" />
+    <entry file="file://$USER_HOME$/3_1/Sistemas Distribuídos/Outros/Estudo_Recurso/Guiao_3/src/Banco.java" />
+    <entry file="file://$USER_HOME$/3_1/Sistemas Distribuídos/Outros/Estudo_Recurso/Guiao_4/src/Ex1.java" />
+    <entry file="file://$USER_HOME$/3_1/Sistemas Distribuídos/Outros/Estudo_Recurso/Guiao_5/src/Ex3.java" />
+    <entry file="file://$USER_HOME$/3_1/Sistemas Distribuídos/Outros/Estudo_Recurso/Guiao_5/src/Ex2.java" />
+    <entry file="file://$PROJECT_DIR$/src/Messages/ReqMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+          <folding>
+            <element signature="method#ReqMessage#0;class#ReqMessage#0" />
+            <element signature="method#ReqMessage#1;class#ReqMessage#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Other.html" />
+    <entry file="file://$PROJECT_DIR$/src/Bank/include/BankInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BankServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/Contents/Home/lib/src.zip!/java.base/java/util/concurrent/Executors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="287" column="43" selection-start-line="287" selection-start-column="43" selection-end-line="287" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save/server_state_12345.obj" />
+    <entry file="file://$PROJECT_DIR$/src/Other/ListPacket.java" />
+    <entry file="file://$PROJECT_DIR$/src/Server/LockFreeBank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#589#590#0" expanded="true" />
+            <element signature="e#620#621#0" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#709#710#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bank/src/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="124" column="22" selection-start-line="124" selection-start-column="22" selection-end-line="124" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Account#0;class#Account#0" />
+            <element signature="method#Account#1;class#Account#0" />
+            <element signature="method#getBalance#0;class#Account#0" />
+            <element signature="method#push#0;class#Account#0" />
+            <element signature="method#movement#0;class#Account#0" />
+            <element signature="method#balance#0;class#Account#0" />
+            <element signature="method#interest#0;class#Account#0" />
+            <element signature="method#history#0;class#Account#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bank/src/Bank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="50" column="57" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Bank#0;class#Bank#0" />
+            <element signature="method#balance#0;class#Bank#0" />
+            <element signature="method#movement#0;class#Bank#0" />
+            <element signature="method#set#0;class#Bank#0" />
+            <element signature="method#transfer#0;class#Bank#0" />
+            <element signature="method#interest#0;class#Bank#0" />
+            <element signature="method#history#0;class#Bank#0" />
+            <element signature="method#makeLockFree#0;class#Bank#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/LockFreeAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Messages/ResMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/SpreadMiddleware.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="205" column="82" selection-start-line="205" selection-start-column="82" selection-end-line="205" selection-end-column="82" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#MyPair#0" />
+            <element signature="e#4808#5503#1" />
+            <element signature="e#5581#6373#1" />
+            <element signature="e#10127#11547#1" />
+            <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
+            <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
+            <element signature="method#push_to_history#0;class#SpreadMiddleware#0" />
+            <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
+            <element signature="method#getLast_msg_seen#0;class#SpreadMiddleware#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BankClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Other/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-396">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Transaction#0;class#Transaction#0" />
+            <element signature="method#Transaction#1;class#Transaction#0" />
+            <element signature="method#Transaction#2;class#Transaction#0" />
+            <element signature="method#toString#0;class#Transaction#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/ServerSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="311" column="14" selection-start-line="311" selection-start-column="14" selection-end-line="311" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3923#3924#0" expanded="true" />
+            <element signature="e#4007#4008#0" expanded="true" />
+            <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
+            <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
+            <element signature="method#history_handler#0;class#ServerSkeleton#0" />
+            <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
+            <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Guiao1</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

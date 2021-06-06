@@ -2,106 +2,12 @@ package Bank.src;
 
 import Bank.include.BankInterface;
 import Other.Transaction;
+import Server.LockFreeAccount;
+import Server.LockFreeBank;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
-class Account implements Serializable
-{
-    private static final short MAX_HISTORY_SIZE = 10;
-
-
-    private ReentrantLock lock;
-    private Queue<Transaction> history;
-    private float balance;
-
-    Account(float balance)
-    {
-        this.history = new LinkedList<>();
-        this.balance = balance;
-        this.lock    = new ReentrantLock();
-    }
-
-    float getBalance ()
-    {
-
-        return balance;
-    }
-
-    void setBalance  (float balance)
-    {
-
-        this.balance = balance;
-    }
-
-    void push        (Transaction t)
-    {
-        if (this.history.size() == MAX_HISTORY_SIZE) {
-            this.history.remove();
-        }
-
-        this.history.add(t);
-    }
-
-    boolean movement (float a, short type)
-    {
-        boolean flag = true;
-
-        lock.lock();
-
-        if( a < 0 && -1 * a > balance)
-        {
-            flag = false;
-        }
-        else
-        {
-            balance += a;
-        }
-
-        push(new Transaction(type, LocalDateTime.now(), a, balance));
-
-        lock.unlock();
-
-        return flag;
-    }
-
-    float   balance  ()
-    {
-        lock.lock();
-
-        float b = this.balance;
-
-        lock.unlock();
-
-        return b;
-    }
-
-    void    interest (float interest)
-    {
-        this.lock.lock();
-
-        this.balance += this.balance * interest;
-
-        this.push(new Transaction(Transaction.INTEREST, LocalDateTime.now(), -1, balance));
-
-        this.lock.unlock();
-    }
-
-    List<Transaction> history()
-    {
-        this.lock.lock();
-
-        List<Transaction> r = new ArrayList<>(this.history);
-
-        this.lock.unlock();
-
-        return r;
-    }
-
-}
 
 public class Bank implements BankInterface, Serializable
 {
@@ -114,9 +20,20 @@ public class Bank implements BankInterface, Serializable
 
         this.accounts = new HashMap<>();
 
-        this.accounts.put(1, new Account(0));
-        this.accounts.put(2, new Account(0));
-        this.accounts.put(3, new Account(0));
+        for(int i = 0; i < 20; i++)
+        {
+            this.accounts.put(i, new Account(0, 0f));
+        }
+    }
+
+    public void update(LockFreeBank lfb)
+    {
+        this.interest = lfb.getInterest();
+        for(Map.Entry<Integer, LockFreeAccount> e : lfb.getAccounts().entrySet())
+        {
+            this.accounts.get(e.getKey()).setBalance(e.getValue().getBalance());
+            this.accounts.get(e.getKey()).setHistory(e.getValue().getHistory());
+        }
     }
 
     public float   balance(int accounID)
@@ -181,6 +98,15 @@ public class Bank implements BankInterface, Serializable
         }
         else
             return null;
+    }
+
+    public LockFreeBank makeLockFree()
+    {
+        LockFreeBank lfb = new LockFreeBank(interest);
+
+        lfb.addAllAccounts(accounts);
+
+        return lfb;
     }
 
 

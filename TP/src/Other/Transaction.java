@@ -20,13 +20,17 @@ public class Transaction implements Serializable
     private float amount_after_from;
     private float amount_after_to;
 
-    private long          req_id;
+    private long          req_id;      // External Client Side ID
+    private long          internal_id; // Internal Server Group ID
     private short         type;
     private LocalDateTime time_created;
 
 
+
     // MOVEMENT constructor
-    public Transaction(LocalDateTime time_created, int account_to, float amount, float amount_after, long req_id) {
+    public Transaction(LocalDateTime time_created, int account_to, float amount, float amount_after, long req_id,
+                       long internal_id)
+    {
 
         this.account_to = account_to;
         this.account_from = -1;
@@ -38,13 +42,16 @@ public class Transaction implements Serializable
 
         this.type = MOVEMENT;
         this.req_id = req_id;
+        this.internal_id = internal_id;
+
         this.time_created = time_created;
 
     }
 
     // TRANSFER constructor
     public Transaction(LocalDateTime time_created, int account_to, int account_from, float amount,
-                       float amount_after_to, float amount_after_from, long req_id) {
+                       float amount_after_to, float amount_after_from, long req_id, long internal_id)
+    {
 
         this.account_to = account_to;
         this.account_from = account_from;
@@ -56,12 +63,15 @@ public class Transaction implements Serializable
 
         this.type = TRANSFER;
         this.req_id = req_id;
+        this.internal_id = internal_id;
+
         this.time_created = time_created;
 
     }
 
     // INTEREST constructor
-    public Transaction(LocalDateTime time_created, long req_id) {
+    public Transaction(LocalDateTime time_created, long req_id, long internal_id)
+    {
 
         this.account_to   = -1;
         this.account_from = -1;
@@ -73,6 +83,8 @@ public class Transaction implements Serializable
 
         this.type = INTEREST;
         this.req_id = req_id;
+        this.internal_id = internal_id;
+
         this.time_created = time_created;
 
     }
@@ -107,5 +119,35 @@ public class Transaction implements Serializable
 
     public LocalDateTime getTime_created() {
         return time_created;
+    }
+
+    public long getInternal_id() {
+        return internal_id;
+    }
+
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        switch (this.getType())
+        {
+            case MOVEMENT:
+            {
+                sb.append("MOVEMENT (").append(this.req_id).append("): ").append(this.account_to).append(" (").append(this.amount).append("$)");
+                break;
+            }
+            case TRANSFER:
+            {
+                sb.append("TRANSFER (").append(this.req_id).append("): ").append(this.account_to).append(" (").append(this.amount).append("$)");
+                break;
+            }
+            case INTEREST:
+            {
+                sb.append("INTEREST (").append(this.req_id).append(")");
+                break;
+            }
+        }
+
+        return sb.toString();
     }
 }

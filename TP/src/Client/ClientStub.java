@@ -9,9 +9,8 @@ import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -47,7 +46,11 @@ public class ClientStub implements BankInterface {
 
         this.es = Executors.newScheduledThreadPool(1);
         this.ms = new NettyMessagingService("ClientStub", this.address, new MessagingConfig());
-        this.s  = Serializer.builder().withTypes(ReqMessage.class, ResMessage.class).build();
+        this.s  = Serializer.builder().withTypes( ReqMessage.class,
+                                                  ResMessage.class,
+                                                  Transaction.class,
+                                                  LocalDateTime.class
+                                                ).build();
 
         this.balance_requests  = new HashMap<>();
         this.movement_requests = new HashMap<>();
@@ -59,7 +62,7 @@ public class ClientStub implements BankInterface {
         this.lastReq = 0;
 
         //  BALANCE RESPONSE
-        this.ms.registerHandler("balance-res", (a, m)  -> {
+        this.ms.registerHandler("balance-res",  (a, m) -> {
             ResMessage<Float> rmsg = this.s.decode(m);
 
             CompletableFuture<Float> req = this.balance_requests.get(rmsg.getReqId());
@@ -122,12 +125,11 @@ public class ClientStub implements BankInterface {
                 req.complete(rmsg.getResponse());
                 //this.movement_requests.remove(rmsg.getReqId());
             }
-
-            System.out.println("Received a Transfer Response!");
         }, this.es);
 
         // INTEREST RESPONSE
         this.ms.registerHandler("interest-res", (a, m) -> {
+
             ResMessage<Void> rmsg = this.s.decode(m);
 
             CompletableFuture<Void> req = this.interest_requests.get(rmsg.getReqId());
@@ -144,12 +146,14 @@ public class ClientStub implements BankInterface {
                     server_responses.put(a.port(), 1);
                 }
                 req.complete(rmsg.getResponse());
-                //this.movement_requests.remove(rmsg.getReqId());
             }
         }, this.es);
 
         // HISTORY RESPONSE
-        this.ms.registerHandler("interest-res", (a, m) -> {
+        this.ms.registerHandler("history-res",  (a, m) -> {
+
+            //System.out.println("Received a History Response");
+
             ResMessage<List<Transaction>> rmsg = this.s.decode(m);
 
             CompletableFuture<List<Transaction>> req = this.history_requests.get(rmsg.getReqId());
@@ -166,7 +170,6 @@ public class ClientStub implements BankInterface {
                     server_responses.put(a.port(), 1);
                 }
                 req.complete(rmsg.getResponse());
-                //this.movement_requests.remove(rmsg.getReqId());
             }
         }, this.es);
 
@@ -232,9 +235,13 @@ public class ClientStub implements BankInterface {
         }
     }
 
-    // SET      (accountId, amount) -> void (unused)
+    // SET      (accountId, amount) -> void
     public void    set(int accountID, float ammount)
     {
+
+        // This is only here because I set it as a member of the interface of the Bank, and since ClientSub is an
+        // implementation of it, it needs to have an implementation of set(), but it goes unused
+
         return;
     }
 
@@ -292,7 +299,7 @@ public class ClientStub implements BankInterface {
         }
     }
 
-    // HISTORY  () -> List<Transaction>
+    // HISTORY  (accountId) -> List<Transaction>
     public List<Transaction> history (int accountID)
     {
         try {
