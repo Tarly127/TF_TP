@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Bank/src/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Server/LockFreeAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Server/LockFreeBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/server_state_12345.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bank/src/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bank/src/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/ClientStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupCommMiddleware/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadMiddleware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Messages/ResMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Messages/ResMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Other/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ServerSkeleton.java" afterDir="false" />
-    </list>
+    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -202,6 +190,31 @@
               <item name="TP" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bank" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bank" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Other" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Server" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -365,13 +378,20 @@
       <option name="project" value="LOCAL" />
       <updated>1622809808080</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Requisitos mínimos feitos">
+      <created>1622995317251</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622995317251</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1366" height="745" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15483384" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15483384" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="DB Browser" order="3" show_stripe_button="false" />
@@ -387,7 +407,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32924962" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32924962" />
       <window_info anchor="bottom" id="DB Execution Console" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -439,10 +459,37 @@
       <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32930514" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit (contains stuff from the various practical guides plus a few changes)" />
     <MESSAGE value="Progress in the SpreadMiddleware" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress in the SpreadMiddleware" />
+    <MESSAGE value="Requisitos mínimos feitos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Requisitos mínimos feitos" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

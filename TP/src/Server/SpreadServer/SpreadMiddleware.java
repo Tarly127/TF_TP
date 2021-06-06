@@ -1,9 +1,10 @@
-package Server;
+package Server.SpreadServer;
 
-import Bank.include.BankInterface;
 import Bank.src.Account;
 import Bank.src.Bank;
 import Other.Transaction;
+import Server.DataPackets.LockFreeAccount;
+import Server.DataPackets.LockFreeBank;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 import spread.*;

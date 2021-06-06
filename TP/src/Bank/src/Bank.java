@@ -2,8 +2,8 @@ package Bank.src;
 
 import Bank.include.BankInterface;
 import Other.Transaction;
-import Server.LockFreeAccount;
-import Server.LockFreeBank;
+import Server.DataPackets.LockFreeAccount;
+import Server.DataPackets.LockFreeBank;
 
 import java.io.Serializable;
 import java.util.*;

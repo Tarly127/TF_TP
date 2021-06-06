@@ -1,4 +1,4 @@
-package Server;
+package Server.DataPackets;
 
 import Bank.src.Account;
 import Bank.src.Bank;

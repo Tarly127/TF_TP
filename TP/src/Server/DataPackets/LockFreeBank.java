@@ -1,7 +1,6 @@
-package Server;
+package Server.DataPackets;
 
 import Bank.src.Account;
-import Bank.src.Bank;
 
 import java.util.HashMap;
 import java.util.Map;

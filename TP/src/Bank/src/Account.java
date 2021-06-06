@@ -1,7 +1,7 @@
 package Bank.src;
 
 import Other.Transaction;
-import Server.LockFreeAccount;
+import Server.DataPackets.LockFreeAccount;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
