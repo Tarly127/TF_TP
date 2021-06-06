@@ -1,107 +1,35 @@
 package Server;
 
-
-import Bank.include.BankInterface;
 import Bank.src.Bank;
-import GroupCommMiddleware.SpreadMiddleware;
 import Messages.ReqMessage;
 import Messages.ResMessage;
+import Other.Transaction;
 import io.atomix.cluster.messaging.MessagingConfig;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
-import spread.*;
-
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
-class QueuedRequest
-{
-    private SpreadGroup sg;
-    private ReqMessage rm;
-
-    QueuedRequest(SpreadGroup sg, ReqMessage rm) {
-        this.sg = sg;
-        this.rm = rm;
-    }
-
-    SpreadGroup getSender() {
-        return sg;
-    }
-
-    ReqMessage getReqMessage() {
-        return rm;
-    }
-}
-
-
-class MyPair<U,V>
-{
-    private U x;
-    private V y;
-
-    MyPair(U x, V y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    U getX() {
-        return x;
-    }
-
-    V getY() {
-        return y;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyPair)) return false;
-        MyPair<?, ?> myPair = (MyPair<?, ?>) o;
-        return Objects.equals(x, myPair.x) &&
-                Objects.equals(y, myPair.y);
-    }
-}
 
 public class ServerSkeleton{
 
-    private static final int   REQ_PORT               = 10000; // Guião 4
+    private static final int   REQ_PORT   = 10000;
+    private static final float INTEREST   = 0.05f;
+    private static final int   NO_THREADS = 1;
 
-
-
-    // Guião 2
-    private Serializer s;
-    private ScheduledExecutorService es;
-
-    // Guião 3
     private int port;
-
-    // Guião 4
+    private long last_msg_seen;
+    private CompletableFuture<Long> fut_leader;
+    private CompletableFuture<Void>    fut_updated;
+    private Serializer s;
+    private ScheduledExecutorService ses;
+    private ExecutorService es;
     private NettyMessagingService ms;
-
-    // Guião 5
-    //private boolean no_st;
-    private int last_msg_seen;
-    //private SpreadGroup sg;
-    //private LinkedList<MyPair<Address, BankUpdate>> unanswered_reqs;
-
-    // Guião 7
-    private Map<Integer, Map<Integer, Float>> active_requests;
-    //private int active_threads;
-    //private int last_batch;
-    //private ReentrantLock act_req_lock;
-    //private ReentrantLock act_thr_lock;
-
-    private BankInterface Bank;
-
-    // TP
-    private static final Float INTEREST = 0.05f;
-
-
     private SpreadMiddleware spread_gv;
-    private boolean ready;
+    private Bank Bank;
 
 
     public ServerSkeleton(int port, int connect_to){
@@ -109,31 +37,14 @@ public class ServerSkeleton{
         this.port = port;
         this.s    = Serializer.builder().withTypes(ReqMessage.class,
                                                    ResMessage.class,
-                                                   Bank.class,
-                                                   ArrayList.class,
-                                                   QueuedRequest.class,
-                                                   //FullBankTransfer.class,
-                                                   MyPair.class,
-                                                   Integer.class,
-                                                   Address.class,
-                                                   //BankUpdate.class
-
+                                                    Transaction.class,
+                LocalDateTime.class
                                         ).build();
-        this.es        = Executors.newScheduledThreadPool(1);
+        this.es              = Executors.newFixedThreadPool(NO_THREADS);
+        this.ses             = Executors.newScheduledThreadPool(1); // can take this out later, only here for debbuging
 
-        this.Bank = new Bank();
-
-        //this.history         = new LinkedList<>();
-        //this.leader_queue    = new LinkedList<>();
-        //this.unanswered_reqs = new LinkedList<>();
-        this.active_requests = new HashMap<>();
-
-        this.ms    = null;
-        //this.no_st = true;
-
-        //this.act_req_lock    = new ReentrantLock();
-        //this.act_thr_lock    = new ReentrantLock();
-        //this.active_threads  = 0;
+        this.Bank            = new Bank(ServerSkeleton.INTEREST);
+        this.ms              = null;
 
         try
         {
@@ -149,24 +60,43 @@ public class ServerSkeleton{
         // As all Spread operations are asynchronous, everything they (eventually) return will need to be stored in a
         // CompletableFuture, and what actions would come after it is completed will need to be supplied right away
         // this will also apply to movements, interests and transfers!
-        CompletableFuture<Boolean> fut_leader = new CompletableFuture<>()
-                                                    .thenApply( is_leader -> {
-                                                        if ( (Boolean) is_leader )
-                                                        {
-                                                            start_atomix();
-                                                        }
-                                                        else
-                                                            ready = false;
-                                                    });
+        this.fut_leader  = new CompletableFuture<>();
+        this.fut_updated = new CompletableFuture<>();
 
-        CompletableFuture<Void> updated = new CompletableFuture<>()
-                                                    .thenApply( updated -> {
-                                                       if ( spread_gv.is_ready() )
-                                                           start_atomix();
-                                                    });
+
+        // Deal with the Leader
+        this.es.submit(() ->
+        {
+            try{
+                last_msg_seen = fut_leader.get();
+                if( spread_gv.is_ready() )
+                    start_atomix();
+            }
+            catch (InterruptedException | ExecutionException e)
+            {
+                e.printStackTrace();
+            }
+
+        });
+
+        // Deal with Group Join Update
+        this.es.submit(() ->
+        {
+            try{
+                fut_updated.get();
+
+                if ( spread_gv.is_ready() )
+                    start_atomix();
+            }
+            catch (InterruptedException | ExecutionException e)
+            {
+                e.printStackTrace();
+            }
+
+        });
 
         // Initialize Spread Connection
-        this.spread_gv = new SpreadMiddleware(port, connect_to, last_msg_seen, fut_leader, updated);
+        this.spread_gv = new SpreadMiddleware(this.Bank, port, connect_to, last_msg_seen, fut_leader, fut_updated);
 
 
         // So it writes state when killed
@@ -177,14 +107,15 @@ public class ServerSkeleton{
             }
         });
 
-        es.scheduleAtFixedRate(() -> {
-            if()
-                System.out.println("I'm the leader man!");
+        ses.scheduleAtFixedRate(() -> {
+            if(spread_gv.is_ready())
+                System.out.println("I'm the leader!");
             else
-                System.out.println("Someone else is the leader man");
-
+                System.out.println("Someone else is the leader");
+//
             System.out.println("Account 1 balance: " + Bank.balance(1) + "$");
             System.out.println("Account 2 balance: " + Bank.balance(2) + "$");
+            System.out.println("I've seen " + last_msg_seen + " messages");
         }, 0, 4, TimeUnit.SECONDS);
     }
 
@@ -196,6 +127,9 @@ public class ServerSkeleton{
 
     private void movement_handler(Address a, byte[] m)
     {
+
+        LocalDateTime now = LocalDateTime.now();
+
         last_msg_seen++;
 
         ReqMessage req_msg = this.s.decode(m);
@@ -206,17 +140,32 @@ public class ServerSkeleton{
 
         boolean flag = this.Bank.movement(accountId,amount);
 
+        float bal_after = this.Bank.balance(accountId);
+
         ResMessage<Boolean> res_message = new ResMessage<>(req_id,flag);
 
         //System.out.println("Movement");
 
+        Transaction t = new Transaction(now, accountId, amount, bal_after, req_id, last_msg_seen);
+
         if( flag )
         {
 
-            CompletableFuture<Long> cf = new CompletableFuture<>()
-                                            .thenApply((id) -> {
-                                                System.out.println("cona");
-                                            });
+            CompletableFuture<Long> cf = new CompletableFuture<>();
+
+            this.es.submit( () -> {
+               try{
+                   cf.get();
+
+                   ms.sendAsync(a, "movement-res", s.encode(res_message));
+               }catch (InterruptedException | ExecutionException e)
+               {
+                   e.printStackTrace();
+               }
+            });
+
+
+            this.spread_gv.update_backups(a, t, cf);
 
         }
         else {
@@ -226,7 +175,7 @@ public class ServerSkeleton{
         }
     }
 
-    private void balance_handler(Address a, byte[] m)
+    private void balance_handler (Address a, byte[] m)
     {
         ReqMessage req_msg = this.s.decode(m);
 
@@ -237,9 +186,6 @@ public class ServerSkeleton{
 
         ResMessage<Float> res_message = new ResMessage<>(req_id,cap);
 
-        //System.out.println("Balance");
-
-
         // No point in warning everyone else about a BALANCE request, reply right away
         this.ms.sendAsync(a, "balance-res", this.s.encode(res_message));
 
@@ -247,6 +193,10 @@ public class ServerSkeleton{
 
     private void transfer_handler(Address a, byte[] m)
     {
+        LocalDateTime now = LocalDateTime.now();
+
+        last_msg_seen++;
+
         ReqMessage req_msg = this.s.decode(m);
 
         int accountId    = req_msg.getAccountId();
@@ -254,58 +204,100 @@ public class ServerSkeleton{
         int req_id       = req_msg.getReqId();
         float amount    = req_msg.getAmount();
 
-        boolean flag = this.Bank.transfer(accountId, to_accountId ,amount);
+        boolean flag = this.Bank.transfer(accountId, to_accountId, amount);
+
+        float bal_after_to = this.Bank.balance(to_accountId);
+        float bal_after_from = this.Bank.balance(accountId);
 
         ResMessage<Boolean> res_message = new ResMessage<>(req_id,flag);
 
         //System.out.println("Transfer");
 
-        if( flag ) {
+        Transaction t = new Transaction(now, to_accountId, accountId, amount, bal_after_to, bal_after_from, req_id,
+                last_msg_seen);
 
-            float bal_after_f = this.Bank.balance(accountId);
-            float bal_after_t = this.Bank.balance(to_accountId);
+        if( flag )
+        {
 
-            BankUpdate su  = new BankUpdate(accountId, to_accountId, bal_after_f, bal_after_t, req_id);
-            MyPair<Address,BankUpdate> sump = new MyPair<>(a, su);
+            CompletableFuture<Long> cf = new CompletableFuture<>();
+
+            this.es.submit( () -> {
+                try{
+                    cf.get();
+
+                    this.ms.sendAsync(a, "transfer-res", this.s.encode(res_message));
+                }catch (InterruptedException | ExecutionException e )
+                {
+                    e.printStackTrace();
+                }
+            });
 
 
-            // CRITICAL ZONE BEGIN
-            act_req_lock.lock();
+            this.spread_gv.update_backups(a, t, cf);
 
-            last_msg_seen++;
-
-            history.add(su);
-
-            if( history.size() == MAX_HIST_SIZE ) history.removeFirst();
-
-            unanswered_reqs.add(sump);
-
-            act_req_lock.unlock();
-            // CRITICAL ZONE END
-
-            // Notify everyone else about the Movement before replying
-            SpreadMessage su_msg = new SpreadMessage();
-
-            su_msg.setData(s.encode(sump));
-            su_msg.setType(state_update);
-            su_msg.setReliable();
-            su_msg.setSafe(); // VERY IMPORTANT
-            su_msg.addGroup(sg);
-
-            try {
-                sconn.multicast(su_msg);
-            } catch (SpreadException e) {
-                e.printStackTrace();
-            }
         }
-        else {
+        else
+        {
             // If the operation is a failure, we don't need to notify everyone else,
             // so we can reply to the request right away
-            this.ms.sendAsync(a, "transfer-res", this.s.encode(res_message));
+            this.ms.sendAsync(a, "movement-res", this.s.encode(res_message));
         }
     }
 
-    // State Persistence Shenanigans
+    private void history_handler (Address a, byte[] m)
+    {
+        ReqMessage req_msg = this.s.decode(m);
+
+        int accountId = req_msg.getAccountId();
+        int req_id = req_msg.getReqId();
+
+        List<Transaction> lt = this.Bank.history(accountId);
+
+        ResMessage<List<Transaction>> res_message = new ResMessage<>(req_id, lt);
+
+        // No point in warning everyone else about a HISTORY request, reply right away
+        this.ms.sendAsync(a, "history-res", this.s.encode(res_message));
+    }
+
+    private void interest_handler(Address a, byte[] m)
+    {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        last_msg_seen++;
+
+        ReqMessage req_msg = this.s.decode(m);
+
+        int req_id       = req_msg.getReqId();
+
+        this.Bank.interest();
+
+        ResMessage<Void> res_message = new ResMessage<>(req_id);
+
+        //System.out.println("Interest");
+
+        Transaction t = new Transaction(now, req_id, last_msg_seen);
+
+        CompletableFuture<Long> cf = new CompletableFuture<>();
+
+        this.es.submit( () -> {
+            try{
+                cf.get();
+
+                this.ms.sendAsync(a, "interest-res", this.s.encode(res_message));
+
+            }
+            catch (InterruptedException | ExecutionException e )
+            {
+                e.printStackTrace();
+            }
+        });
+
+        this.spread_gv.update_backups(a, t, cf);
+    }
+
+
+    // Very, very Simple Data Persistence
 
     private void read_state() throws FileNotFoundException
     {
@@ -314,10 +306,10 @@ public class ServerSkeleton{
         try{
             ObjectInputStream in = new ObjectInputStream(fis);
             this.Bank = (Bank) in.readObject();
-            this.last_msg_seen= (int) in.readObject();
-            System.out.println("Last request received before death: " + last_msg_seen);
+            this.last_msg_seen= (long) in.readObject();
+            //System.out.println("Last request received before death: " + last_msg_seen);
             in.close();
-            System.out.println("Read previous state");
+            //System.out.println("Read previous state");
         }
         catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
@@ -327,10 +319,9 @@ public class ServerSkeleton{
     private void store_state()
     {
         try{
-            System.out.println("Last update: " + history.size());
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save/server_state_" + this.port + ".obj"));
             out.writeObject(this.Bank);
-            out.writeObject(this.last_msg_seen);
+            out.writeObject(this.spread_gv.getLast_msg_seen());
             out.flush();
             out.close();
             System.out.println("Stored my own state before death");
@@ -342,16 +333,20 @@ public class ServerSkeleton{
 
     }
 
-    // Atomix Starting Shenanigans
+    // Starting/Stoping Atomix
 
     private void start_atomix()
     {
         if(ms == null)
         {
             ms = new NettyMessagingService("ServerSkeleton", Address.from(REQ_PORT), new MessagingConfig());
-            ms.registerHandler("movement-req", (a,m) -> { movement_handler(a,m);}, es);
-            ms.registerHandler("balance-req",  (a,m) -> { balance_handler(a,m); }, es);
-            ms.registerHandler("transfer-req", (a,m) -> { transfer_handler(a,m);}, es);
+
+            ms.registerHandler("movement-req", (a,m) -> { movement_handler(a,m); }, es);
+            ms.registerHandler("balance-req",  (a,m) -> { balance_handler (a,m); }, es);
+            ms.registerHandler("transfer-req", (a,m) -> { transfer_handler(a,m); }, es);
+            ms.registerHandler("history-req",  (a,m) -> { history_handler (a,m); }, es);
+            ms.registerHandler("interest-req", (a,m) -> { interest_handler(a,m); }, es);
+
             ms.start();
         }
     }
@@ -363,6 +358,8 @@ public class ServerSkeleton{
             ms.unregisterHandler("movement-req");
             ms.unregisterHandler("balance-req" );
             ms.unregisterHandler("transfer-req");
+            ms.unregisterHandler("history-req" );
+            ms.unregisterHandler("interest-req");
             ms.stop();
         }
     }
