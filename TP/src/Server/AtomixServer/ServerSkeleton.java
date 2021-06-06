@@ -24,7 +24,7 @@ public class ServerSkeleton{
     private int port;
     private long last_msg_seen;
     private CompletableFuture<Long> fut_leader;
-    private CompletableFuture<Void>    fut_updated;
+    private CompletableFuture<Long> fut_updated;
     private Serializer s;
     private ScheduledExecutorService ses;
     private ExecutorService es;
@@ -36,11 +36,12 @@ public class ServerSkeleton{
     public ServerSkeleton(int port, int connect_to){
 
         this.port = port;
-        this.s    = Serializer.builder().withTypes(ReqMessage.class,
-                                                   ResMessage.class,
-                                                    Transaction.class,
+        this.s    = Serializer.builder().withTypes(
+                ReqMessage.class,
+                ResMessage.class,
+                Transaction.class,
                 LocalDateTime.class
-                                        ).build();
+        ).build();
         this.es              = Executors.newFixedThreadPool(NO_THREADS);
         this.ses             = Executors.newScheduledThreadPool(1); // can take this out later, only here for debbuging
 
@@ -70,6 +71,7 @@ public class ServerSkeleton{
         {
             try{
                 last_msg_seen = fut_leader.get();
+
                 if( spread_gv.is_ready() )
                     start_atomix();
             }
@@ -84,7 +86,7 @@ public class ServerSkeleton{
         this.es.submit(() ->
         {
             try{
-                fut_updated.get();
+                last_msg_seen = fut_updated.get();
 
                 if ( spread_gv.is_ready() )
                     start_atomix();

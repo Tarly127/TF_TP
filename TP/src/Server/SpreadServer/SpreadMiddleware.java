@@ -86,13 +86,13 @@ public class SpreadMiddleware {
 
     private Map<Long, CompletableFuture<Long>> unanswered_reqs;
     private CompletableFuture<Long> leader;
-    private CompletableFuture<Void>    updated;
+    private CompletableFuture<Long> updated;
 
     private Bank Bank; // Cringe, but it has to be done!
 
     public SpreadMiddleware(Bank bank, int port, int connect_to, long lms,
                             CompletableFuture<Long> in_leader,
-                            CompletableFuture<Void> in_updated)
+                            CompletableFuture<Long> in_updated)
     {
         try
         {
@@ -158,11 +158,11 @@ public class SpreadMiddleware {
 
                                 FullBankTransfer state_tr = s.decode(msg.getData());
 
-                                last_msg_seen = state_tr.getLast_msg_seen(); //TODO
+                                last_msg_seen = state_tr.getLast_msg_seen();
                                 Bank.update(state_tr.getBank());
                                 is_utd = true;
 
-                                updated.complete(null);
+                                updated.complete(last_msg_seen);
                             }
                             break;
                         }
@@ -182,12 +182,12 @@ public class SpreadMiddleware {
                                 }
 
                                 is_utd = true;
-                                updated.complete(null);
+                                updated.complete(last_msg_seen);
 
                             }
                             break;
                         }
-                        case state_transfer_request: //TODO
+                        case state_transfer_request:
                         {
                             // we should be careful not to process requests like these if we're not up to date
                             // or if we're the only member of the comm group, because that means we're the ones
@@ -253,10 +253,9 @@ public class SpreadMiddleware {
                             }
                             break;
                         }
-                        case state_update: //TODO
+                        case state_update:
                         {
                             // state updates only matter if they come from the leader and I'm not it.
-                            // TODO
                             if( !is_leader )
                             {
                                 // If I'm not the leader, I don't have to worry about concurrency control
