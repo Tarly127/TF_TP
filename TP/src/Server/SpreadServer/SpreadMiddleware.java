@@ -13,7 +13,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 // "Box" Containing the Full Bank Data
@@ -80,9 +82,14 @@ public class SpreadMiddleware {
     private boolean                            is_leader;
     private boolean                            is_utd;
     private boolean                            no_st;
-    private long                               last_msg_seen;
+    private AtomicLong                         last_msg_seen;
+    private AtomicLong                         transactions_completed;
     private LinkedList<Transaction>            history;
     private LinkedList<SpreadGroup>            leader_queue;
+    private LinkedList<SpreadMessage>          req_queue;
+    private ReentrantLock                      queue_lock;
+    private ReentrantLock                      history_lock;
+    private ReentrantLock                      unanswered_lock;
 
     private Map<Long, CompletableFuture<Long>> unanswered_reqs;
     private CompletableFuture<Long> leader;
@@ -96,14 +103,27 @@ public class SpreadMiddleware {
     {
         try
         {
+            ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+            ses.scheduleAtFixedRate(() -> {
+                if(is_leader) System.out.println("I'm the leader!");
+                System.out.println(last_msg_seen.longValue() + "::" + transactions_completed.longValue());
+                System.out.println("Number of requests enqueued: " + unanswered_reqs.size());
+            }, 0, 10, TimeUnit.SECONDS);
 
-            this.history         = new LinkedList<>();
-            this.leader_queue    = new LinkedList<>();
-            this.unanswered_reqs = new HashMap<>();
-            this.leader          = in_leader;
-            this.updated         = in_updated;
-            this.Bank            = bank;
-            this.last_msg_seen   = lms;
+
+            this.history                = new LinkedList<>();
+            this.leader_queue           = new LinkedList<>();
+            this.req_queue              = new LinkedList<>();
+            this.unanswered_reqs        = new HashMap<>();
+            this.leader                 = in_leader;
+            this.updated                = in_updated;
+            this.Bank                   = bank;
+            this.last_msg_seen          = new AtomicLong(lms);
+            this.transactions_completed = new AtomicLong(lms);
+
+            this.queue_lock             = new ReentrantLock();
+            this.history_lock           = new ReentrantLock();
+            this.unanswered_lock        = new ReentrantLock();
 
             this.s    = Serializer.builder().withTypes(
                                             FullBankTransfer.class,
@@ -125,7 +145,7 @@ public class SpreadMiddleware {
             // when I join the Group, i will send a message to ask others to update_backups my state
             SpreadMessage str = new SpreadMessage();
 
-            str.setData(s.encode(last_msg_seen));
+            str.setData(s.encode(last_msg_seen.longValue()));
             str.setType(state_transfer_request);
             str.setReliable();
             str.setSafe();
@@ -147,7 +167,7 @@ public class SpreadMiddleware {
                 // Deal with regular messages circulating in the server group(s)
                 public void regularMessageReceived(SpreadMessage msg)
                 {
-                    switch (msg.getType())
+                    switch ( msg.getType() )
                     {
                         case state_transfer_full:
                         {
@@ -158,11 +178,13 @@ public class SpreadMiddleware {
 
                                 FullBankTransfer state_tr = s.decode(msg.getData());
 
-                                last_msg_seen = state_tr.getLast_msg_seen();
+                                last_msg_seen          = new AtomicLong(state_tr.getLast_msg_seen());
+                                transactions_completed = new AtomicLong(state_tr.getLast_msg_seen());
+
                                 Bank.update(state_tr.getBank());
                                 is_utd = true;
 
-                                updated.complete(last_msg_seen);
+                                updated.complete(last_msg_seen.longValue());
                             }
                             break;
                         }
@@ -179,10 +201,13 @@ public class SpreadMiddleware {
                                 for (Transaction t : state_tr)
                                 {
                                     update_bank(t);
+
+                                    last_msg_seen.incrementAndGet();
+                                    transactions_completed.incrementAndGet();
                                 }
 
                                 is_utd = true;
-                                updated.complete(last_msg_seen);
+                                updated.complete(last_msg_seen.longValue());
 
                             }
                             break;
@@ -200,13 +225,16 @@ public class SpreadMiddleware {
                                 // of requests (movements only, as they're the only ones that alter state) to him instead of
                                 // the full bank object
 
-                                System.out.println(requests_processed_before_fail + " - " + last_msg_seen);
+                                //System.out.println(requests_processed_before_fail + " - " + last_msg_seen.longValue
+                                // ());
 
-                                if ( last_msg_seen - requests_processed_before_fail <= history.size() && requests_processed_before_fail <= last_msg_seen)
+                                if ( last_msg_seen.longValue() - requests_processed_before_fail <= history.size()
+                                        && requests_processed_before_fail <= last_msg_seen.longValue())
                                 {
                                     List<Transaction> payload = new ArrayList<>();
 
-                                    for (long i = history.size() - (last_msg_seen - requests_processed_before_fail); i < history.size(); i++) {
+                                    for (long i = history.size() - (last_msg_seen.longValue() -
+                                            requests_processed_before_fail); i < history.size(); i++) {
                                         payload.add(history.get((int)i));
                                     }
 
@@ -231,7 +259,7 @@ public class SpreadMiddleware {
                                 // if it isn't, we have no choice but to send the entire bank object over
                                 else
                                 {
-                                    FullBankTransfer payload = new FullBankTransfer((Bank)Bank, last_msg_seen);
+                                    FullBankTransfer payload = new FullBankTransfer(Bank, last_msg_seen.longValue());
 
                                     // Send state over
                                     SpreadMessage state = new SpreadMessage();
@@ -268,7 +296,8 @@ public class SpreadMiddleware {
 
                                 is_utd = true;
 
-                                last_msg_seen++;
+                                last_msg_seen.incrementAndGet();
+                                transactions_completed.incrementAndGet();
 
                                 //System.out.println("Leader informed me of a new client request");
                             }
@@ -279,9 +308,11 @@ public class SpreadMiddleware {
 
                                 long id = su_msg.getY().getInternal_id();
 
-                                unanswered_reqs.get(id).complete(id);
-
-                                unanswered_reqs.remove(id);
+                                if(unanswered_reqs.containsKey(id))
+                                {
+                                    unanswered_reqs.get(id).complete(id);
+                                    unanswered_reqs.remove(id);
+                                }
 
                                 //System.out.println("Received my own status update_backups, so I can answer the client");
                             }
@@ -298,8 +329,10 @@ public class SpreadMiddleware {
                     MembershipInfo info = msg.getMembershipInfo();
 
                     if( info.isRegularMembership() ) {
-                        if ( info.isCausedByJoin() ) {
-                            if( leader_queue.size() == 0 ) { //we we're the ones joining
+                        if ( info.isCausedByJoin() )
+                        {
+                            if( leader_queue.size() == 0 )
+                            {   //we we're the ones joining
 
                                 // store the list of servers who came before us
                                 // one of these will be the leader, but we don't
@@ -312,22 +345,26 @@ public class SpreadMiddleware {
                                 // If I'm the leader, I'll complete the future
                                 // thus informing the ServerSkeleton we are the Leader
                                 if( is_leader )
-
-                                    leader.complete(last_msg_seen);
+                                {
+                                    System.out.println("Message seen when I became leader: " +
+                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    leader.complete(last_msg_seen.longValue());
+                                }
 
                             }
                             // we don't care if others join after us
                         }
-                        else if(info.isCausedByDisconnect() || info.isCausedByLeave())
-                        {
+                        else if(info.isCausedByDisconnect() || info.isCausedByLeave()) {
                             leader_queue.remove(info.getLeft());
 
                             is_leader = leader_queue.size() == 1;
 
                             // If I'm the leader, I'll start receiving requests from client
-                            if(is_leader)
-
-                                leader.complete(last_msg_seen);
+                            if (is_leader) {
+                                System.out.println("Message seen when I became leader: " +
+                                        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                leader.complete(last_msg_seen.longValue());
+                            }
                         }
                     }
                 }
@@ -339,47 +376,79 @@ public class SpreadMiddleware {
         }
     }
 
-    // update_backups all backups about the new transaction
-    public void update_backups(Address a, Transaction t, CompletableFuture<Long> cf)
-    {
-        MyPair<Address, Transaction> sump = new MyPair<>(a, t);
-
-        last_msg_seen++;
-
-        push_to_history(t);
-
-        unanswered_reqs.put(t.getInternal_id(), cf);
-
-        SpreadMessage su_msg = new SpreadMessage();
-
-        su_msg.setData(s.encode(sump));
-        su_msg.setType(state_update);
-        su_msg.setReliable();
-        su_msg.setSafe(); // VERY IMPORTANT
-        su_msg.addGroup(sg);
-
-        try {
-            sconn.multicast(su_msg);
-        } catch (SpreadException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public boolean is_ready ()
     {
 
         return this.is_leader && this.is_utd;
     }
 
-    private void push_to_history(Transaction t)
+    public long getTransactions_completed()
     {
-        if ( this.history.size() == MAX_HIST_SIZE )
-        {
-            this.history.removeFirst();
-        }
+        return transactions_completed.longValue() - req_queue.size();
+    }
 
-        this.history.addLast(t);
+
+    // Private methods
+
+    // update_backups all backups about the new transaction
+    public void update_backups(Address a, Transaction t, CompletableFuture<Long> cf)
+    {
+
+        //System.out.println("From " + a.toString() + " received req. " + t.getReq_id());
+        // get the internal ID (an atomic operation)
+        long my_lms = this.last_msg_seen.getAndIncrement();
+
+        // set the Transaction's internal ID
+        t.setInternal_id(my_lms);
+
+        // update the history
+        add_to_history(t);
+
+        // update the unanswered requests list
+        add_to_ureqs(cf, my_lms);
+
+        // create the new packet to be sent, plus the new message
+        MyPair<Address, Transaction> sump = new MyPair<>(a, t);
+
+        SpreadMessage su_msg = new SpreadMessage();
+        su_msg.setData(s.encode(sump));
+        su_msg.setType(state_update);
+        su_msg.setReliable();
+        su_msg.setSafe();
+        su_msg.addGroup(sg);
+
+
+        // increment the number of completed transactions
+        transactions_completed.incrementAndGet();
+
+        // Add the new request to the request queue
+        add_to_req_queue(su_msg);
+
+        //if(last_msg_seen.longValue() != transactions_completed.longValue())
+
+
+        if( last_msg_seen.longValue() == transactions_completed.longValue() )
+        {
+            try
+            {
+                queue_lock.lock();
+
+                while(!req_queue.isEmpty())
+                {
+                    sconn.multicast(req_queue.removeFirst());
+                }
+
+                queue_lock.unlock();
+            }
+            catch (SpreadException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        //else
+        //    System.out.println("(" + last_msg_seen.longValue() + "," + transactions_completed.longValue() + ") ... " +
+        //    "(" + t.getReq_id() + ")");
+
     }
 
     private void update_bank(Transaction t)
@@ -400,7 +469,6 @@ public class SpreadMiddleware {
             }
             case Transaction.TRANSFER:
             {
-                System.out.println("Update from TRANSFER");
                 this.Bank.set(t.getAccount_to(),   t.getAmount_after_to());
                 this.Bank.set(t.getAccount_from(), t.getAmount_after_from());
                 break;
@@ -408,9 +476,39 @@ public class SpreadMiddleware {
         }
     }
 
-    public long getLast_msg_seen()
+    private void add_to_history(Transaction t)
     {
 
-        return last_msg_seen;
+        this.history_lock.lock();
+
+        if ( this.history.size() == MAX_HIST_SIZE )
+        {
+            this.history.removeFirst();
+        }
+
+        this.history.addLast(t);
+
+        this.history_lock.unlock();
+    }
+
+    private void add_to_ureqs(CompletableFuture<Long> cf, long my_lms)
+    {
+        unanswered_lock.lock();
+
+        if(unanswered_reqs.containsKey(my_lms))
+            System.err.println(my_lms + " already inserted!!!!!");
+
+        unanswered_reqs.put(my_lms, cf);
+
+        unanswered_lock.unlock();
+    }
+
+    private void add_to_req_queue(SpreadMessage su_msg)
+    {
+        this.queue_lock.lock();
+
+        req_queue.addLast(su_msg);
+
+        this.queue_lock.unlock();
     }
 }

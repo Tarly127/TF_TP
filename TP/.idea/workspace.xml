@@ -2,9 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/server_state_12345.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/server_state_12346.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BankServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/ClientStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Other/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Other/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bank/src/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bank/src/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Bank/src/Bank.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bank/src/Bank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BankServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Other/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Other/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/LockFreeAccount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/LockFreeBank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/ServerSkeleton$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/ServerSkeleton.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Bank/src/Account.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Bank/src/Bank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/BankClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Other/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Other/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/FullBankTransfer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/MyPair.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadMiddleware$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadMiddleware.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,16 +50,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1449">
-              <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+            <state relative-caret-position="866">
+              <caret line="319" column="103" selection-start-line="319" selection-start-column="103" selection-end-line="319" selection-end-column="103" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3923#3924#0" expanded="true" />
-                <element signature="e#4007#4008#0" expanded="true" />
+                <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#transfer_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#history_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#interest_handler#0;class#ServerSkeleton#0" />
+                <element signature="method#read_state#0;class#ServerSkeleton#0" />
+                <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
                 <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
               </folding>
             </state>
@@ -42,32 +68,57 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/BankServer.java">
+        <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+            <state relative-caret-position="203">
+              <caret line="366" column="29" selection-start-line="366" selection-start-column="29" selection-end-line="366" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#MyPair#0" />
+                <element signature="e#5663#6500#1" />
+                <element signature="e#6578#7539#1" />
+                <element signature="e#7617#11373#1" />
+                <element signature="e#11441#13134#1" />
+                <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
+                <element signature="e#16335#16336#0" expanded="true" />
+                <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
+                <element signature="method#add_to_history#0;class#SpreadMiddleware#0" />
+                <element signature="method#add_to_ureqs#0;class#SpreadMiddleware#0" />
+                <element signature="method#add_to_#0;class#SpreadMiddleware#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
+        <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1086">
-              <caret line="294" column="23" selection-start-line="294" selection-start-column="19" selection-end-line="294" selection-end-column="23" />
+            <state relative-caret-position="59">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="class#MyPair#0" />
-                <element signature="e#4808#5503#1" />
-                <element signature="e#5581#6373#1" />
-                <element signature="e#6458#10052#1" />
-                <element signature="e#10127#11547#1" />
-                <element signature="method#membershipMessageReceived#0;class#4446:13501" />
-                <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
-                <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
-                <element signature="method#push_to_history#0;class#SpreadMiddleware#0" />
-                <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
-                <element signature="method#getLast_msg_seen#0;class#SpreadMiddleware#0" />
+                <element signature="e#2440#3143#0" />
+                <element signature="e#3233#3943#0" />
+                <element signature="e#4033#4743#0" />
+                <element signature="e#4833#5472#0" />
+                <element signature="e#5561#6290#0" />
+                <element signature="method#balance#0;class#ClientStub#0" />
+                <element signature="method#movement#0;class#ClientStub#0" />
+                <element signature="method#set#0;class#ClientStub#0" />
+                <element signature="method#transfer#0;class#ClientStub#0" />
+                <element signature="method#interest#0;class#ClientStub#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BankClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,8 +137,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>case</find>
-      <find>system</find>
       <find>TODO</find>
+      <find>system</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -112,7 +163,6 @@
         <option value="$PROJECT_DIR$/src/GroupCommMiddleware/GMSM.java" />
         <option value="$PROJECT_DIR$/src/Messages/ResMessage.java" />
         <option value="$PROJECT_DIR$/src/Other/ListPacket.java" />
-        <option value="$PROJECT_DIR$/src/Other/Transaction.java" />
         <option value="$PROJECT_DIR$/src/GroupCommMiddleware/SpreadMiddleware.java" />
         <option value="$PROJECT_DIR$/src/Bank/src/LockFreeAccount.java" />
         <option value="$PROJECT_DIR$/src/Bank/src/LockFreeBank.java" />
@@ -121,12 +171,13 @@
         <option value="$PROJECT_DIR$/src/Bank/src/Account.java" />
         <option value="$PROJECT_DIR$/src/Bank/src/Bank.java" />
         <option value="$PROJECT_DIR$/src/Server/SpreadMiddleware.java" />
-        <option value="$PROJECT_DIR$/src/BankClient.java" />
-        <option value="$PROJECT_DIR$/src/Client/ClientStub.java" />
         <option value="$PROJECT_DIR$/src/Server/ServerSkeleton.java" />
-        <option value="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" />
-        <option value="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" />
+        <option value="$PROJECT_DIR$/src/Other/Transaction.java" />
         <option value="$PROJECT_DIR$/src/BankServer.java" />
+        <option value="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" />
+        <option value="$PROJECT_DIR$/src/Client/ClientStub.java" />
+        <option value="$PROJECT_DIR$/src/BankClient.java" />
+        <option value="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" />
       </list>
     </option>
   </component>
@@ -208,9 +259,9 @@
         </RuleState>
       </list>
     </option>
-    <option name="contentProportion" value="0.14197531" />
+    <option name="contentProportion" value="0.014671815" />
   </component>
-  <component name="RunManager" selected="Application.SingleClientA">
+  <component name="RunManager" selected="Application.Server_B">
     <configuration name="Server_A" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BankServer" />
       <module name="Guiao1" />
@@ -231,6 +282,14 @@
       <option name="MAIN_CLASS_NAME" value="BankServer" />
       <module name="Guiao1" />
       <option name="PROGRAM_PARAMETERS" value="12347 4805" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server_D" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BankServer" />
+      <module name="Guiao1" />
+      <option name="PROGRAM_PARAMETERS" value="12348 4805" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -276,16 +335,16 @@
       </method>
     </configuration>
     <configuration name="Clients" type="CompoundRunConfigurationType">
-      <toRun name="SingleClientB" type="Application" />
       <toRun name="SingleClientC" type="Application" />
-      <toRun name="SingleClientE" type="Application" />
       <toRun name="SingleClientD" type="Application" />
+      <toRun name="SingleClientB" type="Application" />
       <toRun name="SingleClientA" type="Application" />
       <method v="2" />
     </configuration>
     <configuration name="Servers" type="CompoundRunConfigurationType">
-      <toRun name="Server_C" type="Application" />
+      <toRun name="Server_D" type="Application" />
       <toRun name="Server_B" type="Application" />
+      <toRun name="Server_C" type="Application" />
       <toRun name="Server_A" type="Application" />
       <method v="2" />
     </configuration>
@@ -303,6 +362,7 @@
       <item itemvalue="Application.Server_A" />
       <item itemvalue="Application.Server_B" />
       <item itemvalue="Application.Server_C" />
+      <item itemvalue="Application.Server_D" />
       <item itemvalue="Application.SingleClientA" />
       <item itemvalue="Application.SingleClientB" />
       <item itemvalue="Application.SingleClientC" />
@@ -350,9 +410,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1366" height="745" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15483384" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15936556" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="DB Browser" order="3" show_stripe_button="false" />
@@ -372,8 +431,8 @@
       <window_info anchor="bottom" id="DB Execution Console" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32678822" />
-      <window_info anchor="bottom" id="Run Dashboard" order="12" weight="0.4226646" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32618684" />
+      <window_info anchor="bottom" id="Run Dashboard" order="12" weight="0.4027565" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -445,6 +504,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit (contains stuff from the various practical guides plus a few changes)" />
@@ -457,6 +530,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/atomix$SingleClientA.ic" NAME="SingleClientA Coverage Results" MODIFIED="1623103469687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$SingleClientB.ic" NAME="SingleClientB Coverage Results" MODIFIED="1615229105002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$Server_B.ic" NAME="Server_B Coverage Results" MODIFIED="1622932265390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$Server_A.ic" NAME="Server_A Coverage Results" MODIFIED="1622994385367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -546,7 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/save/server_state_12345.obj" />
     <entry file="file://$PROJECT_DIR$/src/Other/ListPacket.java" />
     <entry file="file://$PROJECT_DIR$/src/Bank/src/Account.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -591,40 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BankClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-50">
-          <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Other/Transaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-396">
-          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Transaction#0;class#Transaction#0" />
-            <element signature="method#Transaction#1;class#Transaction#0" />
-            <element signature="method#Transaction#2;class#Transaction#0" />
-            <element signature="method#toString#0;class#Transaction#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/DataPackets/LockFreeAccount.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -645,48 +684,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
+    <entry file="file://$PROJECT_DIR$/save/server_state_12345.obj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BankServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1086">
-          <caret line="294" column="23" selection-start-line="294" selection-start-column="19" selection-end-line="294" selection-end-column="23" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#117#118#0" expanded="true" />
+            <element signature="e#205#206#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Other/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="154" column="4" selection-start-line="154" selection-start-column="4" selection-end-line="154" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#MyPair#0" />
-            <element signature="e#4808#5503#1" />
-            <element signature="e#5581#6373#1" />
-            <element signature="e#6458#10052#1" />
-            <element signature="e#10127#11547#1" />
-            <element signature="method#membershipMessageReceived#0;class#4446:13501" />
-            <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
-            <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
-            <element signature="method#push_to_history#0;class#SpreadMiddleware#0" />
-            <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
-            <element signature="method#getLast_msg_seen#0;class#SpreadMiddleware#0" />
+            <element signature="method#Transaction#0;class#Transaction#0" />
+            <element signature="method#Transaction#1;class#Transaction#0" />
+            <element signature="method#Transaction#2;class#Transaction#0" />
+            <element signature="method#toString#0;class#Transaction#0" />
+            <element signature="e#3782#3783#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BankClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2440#3143#0" />
+            <element signature="e#3233#3943#0" />
+            <element signature="e#4033#4743#0" />
+            <element signature="e#4833#5472#0" />
+            <element signature="e#5561#6290#0" />
+            <element signature="method#balance#0;class#ClientStub#0" />
+            <element signature="method#movement#0;class#ClientStub#0" />
+            <element signature="method#set#0;class#ClientStub#0" />
+            <element signature="method#transfer#0;class#ClientStub#0" />
+            <element signature="method#interest#0;class#ClientStub#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1449">
-          <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+        <state relative-caret-position="866">
+          <caret line="319" column="103" selection-start-line="319" selection-start-column="103" selection-end-line="319" selection-end-column="103" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3923#3924#0" expanded="true" />
-            <element signature="e#4007#4008#0" expanded="true" />
+            <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
             <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
             <element signature="method#transfer_handler#0;class#ServerSkeleton#0" />
             <element signature="method#history_handler#0;class#ServerSkeleton#0" />
             <element signature="method#interest_handler#0;class#ServerSkeleton#0" />
+            <element signature="method#read_state#0;class#ServerSkeleton#0" />
+            <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
             <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BankServer.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        <state relative-caret-position="203">
+          <caret line="366" column="29" selection-start-line="366" selection-start-column="29" selection-end-line="366" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#MyPair#0" />
+            <element signature="e#5663#6500#1" />
+            <element signature="e#6578#7539#1" />
+            <element signature="e#7617#11373#1" />
+            <element signature="e#11441#13134#1" />
+            <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
+            <element signature="e#16335#16336#0" expanded="true" />
+            <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_history#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_ureqs#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_#0;class#SpreadMiddleware#0" />
+          </folding>
         </state>
       </provider>
     </entry>

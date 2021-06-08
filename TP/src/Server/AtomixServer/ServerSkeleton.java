@@ -19,7 +19,7 @@ public class ServerSkeleton{
 
     private static final int   REQ_PORT   = 10000;
     private static final float INTEREST   = 0.05f;
-    private static final int   NO_THREADS = 1;
+    private static final int   NO_THREADS = 8;
 
     private int port;
     private long last_msg_seen;
@@ -85,7 +85,8 @@ public class ServerSkeleton{
         // Deal with Group Join Update
         this.es.submit(() ->
         {
-            try{
+            try
+            {
                 last_msg_seen = fut_updated.get();
 
                 if ( spread_gv.is_ready() )
@@ -111,15 +112,14 @@ public class ServerSkeleton{
         });
 
         ses.scheduleAtFixedRate(() -> {
-            if(spread_gv.is_ready())
-                System.out.println("I'm the leader!");
-            else
-                System.out.println("Someone else is the leader");
-//
+            //if(spread_gv.is_ready())
+            //    System.out.println("I'm the leader!");
+            //else
+            //    System.out.println("Someone else is the leader");
             System.out.println("Account 1 balance: " + Bank.balance(1) + "$");
-            System.out.println("Account 2 balance: " + Bank.balance(2) + "$");
-            System.out.println("I've seen " + last_msg_seen + " messages");
-        }, 0, 4, TimeUnit.SECONDS);
+            //System.out.println("Account 2 balance: " + Bank.balance(2) + "$");
+            //System.out.println("I've seen " + last_msg_seen + " messages");
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     public void show(int accountID){
@@ -132,8 +132,6 @@ public class ServerSkeleton{
     {
 
         LocalDateTime now = LocalDateTime.now();
-
-        last_msg_seen++;
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -149,19 +147,22 @@ public class ServerSkeleton{
 
         //System.out.println("Movement");
 
-        Transaction t = new Transaction(now, accountId, amount, bal_after, req_id, last_msg_seen);
+        Transaction t = new Transaction(now, accountId, amount, bal_after, req_id, -1);
 
         if( flag )
         {
 
             CompletableFuture<Long> cf = new CompletableFuture<>();
 
-            this.es.submit( () -> {
-               try{
+            this.es.submit( () ->
+            {
+               try
+               {
                    cf.get();
 
                    ms.sendAsync(a, "movement-res", s.encode(res_message));
-               }catch (InterruptedException | ExecutionException e)
+               }
+               catch (InterruptedException | ExecutionException e)
                {
                    e.printStackTrace();
                }
@@ -198,8 +199,6 @@ public class ServerSkeleton{
     {
         LocalDateTime now = LocalDateTime.now();
 
-        last_msg_seen++;
-
         ReqMessage req_msg = this.s.decode(m);
 
         int accountId    = req_msg.getAccountId();
@@ -214,10 +213,8 @@ public class ServerSkeleton{
 
         ResMessage<Boolean> res_message = new ResMessage<>(req_id,flag);
 
-        //System.out.println("Transfer");
-
         Transaction t = new Transaction(now, to_accountId, accountId, amount, bal_after_to, bal_after_from, req_id,
-                last_msg_seen);
+                -1);
 
         if( flag )
         {
@@ -264,10 +261,7 @@ public class ServerSkeleton{
 
     private void interest_handler(Address a, byte[] m)
     {
-
         LocalDateTime now = LocalDateTime.now();
-
-        last_msg_seen++;
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -277,9 +271,7 @@ public class ServerSkeleton{
 
         ResMessage<Void> res_message = new ResMessage<>(req_id);
 
-        //System.out.println("Interest");
-
-        Transaction t = new Transaction(now, req_id, last_msg_seen);
+        Transaction t = new Transaction(now, req_id, -1);
 
         CompletableFuture<Long> cf = new CompletableFuture<>();
 
@@ -301,15 +293,17 @@ public class ServerSkeleton{
 
 
     // Very, very Simple Data Persistence
-
     private void read_state() throws FileNotFoundException
     {
         FileInputStream fis = new FileInputStream("save/server_state_" + this.port + ".obj");
 
-        try{
+        try
+        {
             ObjectInputStream in = new ObjectInputStream(fis);
-            this.Bank = (Bank) in.readObject();
-            this.last_msg_seen= (long) in.readObject();
+
+            this.Bank          = (Bank) in.readObject();
+            this.last_msg_seen = (long) in.readObject();
+
             //System.out.println("Last request received before death: " + last_msg_seen);
             in.close();
             //System.out.println("Read previous state");
@@ -321,13 +315,22 @@ public class ServerSkeleton{
 
     private void store_state()
     {
-        try{
+        try
+        {
+            // As soon as we get to this point, we shutdown atomix so we won't receive further requests
+            stop_atomix();
+
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save/server_state_" + this.port + ".obj"));
+
+            long tc = this.spread_gv.getTransactions_completed();
+
             out.writeObject(this.Bank);
-            out.writeObject(this.spread_gv.getLast_msg_seen());
+            out.writeObject(tc);
+
             out.flush();
             out.close();
-            System.out.println("Stored my own state before death");
+
+            System.out.println("Stored my own state before death (" + tc + ")");
         }
         catch(IOException e){
             e.printStackTrace();
@@ -358,12 +361,13 @@ public class ServerSkeleton{
     {
         if(ms != null)
         {
+            ms.stop();
+
             ms.unregisterHandler("movement-req");
             ms.unregisterHandler("balance-req" );
             ms.unregisterHandler("transfer-req");
             ms.unregisterHandler("history-req" );
             ms.unregisterHandler("interest-req");
-            ms.stop();
         }
     }
 

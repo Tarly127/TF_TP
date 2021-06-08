@@ -1,8 +1,8 @@
 import Server.AtomixServer.ServerSkeleton;
 
 public class BankServer {
-    public static void main(String args[]) throws InterruptedException
+    public static void main(String[] args)
     {
-        ServerSkeleton server = new ServerSkeleton(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+        new ServerSkeleton(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 }

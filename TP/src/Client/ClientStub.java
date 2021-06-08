@@ -11,28 +11,27 @@ import io.atomix.utils.serializer.Serializer;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
 
 
-public class ClientStub implements BankInterface {
+public class ClientStub implements BankInterface
+{
+
+    private static final int TIMEOUT_LIMIT = 10;
 
     private NettyMessagingService ms;
     private ScheduledExecutorService es;
     private Address address;
-    private Address toAddress; // only "one" server
+    private Address toAddress;
     private Serializer s;
 
     private int lastReq;
 
 
-    // Maybe turn all of these into a single Map, maybe TODO
     private Map<Integer, CompletableFuture<Float>>             balance_requests;
     private Map<Integer, CompletableFuture<Boolean>>           movement_requests;
     private Map<Integer, CompletableFuture<Boolean>>           transfer_requests;
-    private Map<Integer, CompletableFuture<Void>>              interest_requests;
+    private Map<Integer, CompletableFuture<Long>>              interest_requests;
     private Map<Integer, CompletableFuture<List<Transaction>>> history_requests;
 
     private Map<Integer, Integer> server_responses;
@@ -132,7 +131,7 @@ public class ClientStub implements BankInterface {
 
             ResMessage<Void> rmsg = this.s.decode(m);
 
-            CompletableFuture<Void> req = this.interest_requests.get(rmsg.getReqId());
+            CompletableFuture<Long> req = this.interest_requests.get(rmsg.getReqId());
 
             if (this.interest_requests.containsKey(rmsg.getReqId())) {
 
@@ -145,7 +144,7 @@ public class ClientStub implements BankInterface {
                 } else {
                     server_responses.put(a.port(), 1);
                 }
-                req.complete(rmsg.getResponse());
+                req.complete(0L);
             }
         }, this.es);
 
@@ -182,6 +181,8 @@ public class ClientStub implements BankInterface {
     {
         try {
             CompletableFuture<Float> fut_balance = new CompletableFuture<>();
+            fut_balance.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
+
             int reqId = this.lastReq++;
             ReqMessage msg = new ReqMessage(accountID, Transaction.BALANCE, reqId, 0);
 
@@ -191,15 +192,16 @@ public class ClientStub implements BankInterface {
             // Send request
             this.ms.sendAndReceive(toAddress, "balance-req", this.s.encode(msg));
 
-            Float res = fut_balance.get();
+            float res = fut_balance.get();
 
             this.balance_requests.remove(reqId);
 
             return res;
         }
-        catch(InterruptedException | ExecutionException e)
+        catch(InterruptedException | ExecutionException | NullPointerException e)
         {
-            e.printStackTrace();
+            System.err.println("Request Failed!");
+
             return -1;
         }
     }
@@ -207,8 +209,10 @@ public class ClientStub implements BankInterface {
     // MOVEMENT (accountId, amount) -> boolean
     public boolean movement(int accountID, float ammount)
     {
-        try {
+        try
+        {
             CompletableFuture<Boolean> fut_mov = new CompletableFuture<>();
+            fut_mov.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
 
             int reqId = this.lastReq++;
             ReqMessage msg = new ReqMessage(accountID, Transaction.MOVEMENT, reqId, ammount);
@@ -228,9 +232,9 @@ public class ClientStub implements BankInterface {
 
             return res;
         }
-        catch (InterruptedException | ExecutionException e)
+        catch (InterruptedException | ExecutionException | NullPointerException e)
         {
-            e.printStackTrace();
+            System.err.println("MOVEMENT Request Failed!");
             return false;
         }
     }
@@ -250,6 +254,7 @@ public class ClientStub implements BankInterface {
     {
         try {
             CompletableFuture<Boolean> fut_transfer = new CompletableFuture<>();
+            fut_transfer.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
 
             int reqId = this.lastReq++;
 
@@ -266,19 +271,21 @@ public class ClientStub implements BankInterface {
 
             return res;
         }
-        catch (InterruptedException | ExecutionException e)
+        catch (InterruptedException | ExecutionException | NullPointerException e)
         {
-            e.printStackTrace();
+            System.err.println("TRANSFER Request Failed!");
             return false;
         }
 
     }
 
     // INTEREST () -> ()
-    public void    interest()
+    public void interest()
     {
-        try {
-            CompletableFuture<Void> fut_transfer = new CompletableFuture<>();
+        try
+        {
+            CompletableFuture<Long> fut_transfer = new CompletableFuture<>();
+            fut_transfer.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
 
             int reqId = this.lastReq++;
 
@@ -293,9 +300,9 @@ public class ClientStub implements BankInterface {
 
             this.transfer_requests.remove(reqId);
         }
-        catch (InterruptedException | ExecutionException e)
+        catch (InterruptedException | ExecutionException | NullPointerException e)
         {
-            e.printStackTrace();
+            System.err.println("INTEREST Request Failed");
         }
     }
 
@@ -303,26 +310,29 @@ public class ClientStub implements BankInterface {
     public List<Transaction> history (int accountID)
     {
         try {
-            CompletableFuture<List<Transaction>> fut_transfer = new CompletableFuture<>();
+            CompletableFuture<List<Transaction>> fut_history = new CompletableFuture<>();
+            fut_history.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
 
             int reqId = this.lastReq++;
 
             ReqMessage msg = new ReqMessage(accountID, -1, Transaction.HISTORY, reqId, -1);
 
-            this.history_requests.put(reqId, fut_transfer);
+            this.history_requests.put(reqId, fut_history);
 
             // Send CompletableFuture
             this.ms.sendAsync(toAddress, "history-req", this.s.encode(msg));
 
-            List<Transaction> res = fut_transfer.get();
+            List<Transaction> res = fut_history.get();
 
             this.history_requests.remove(reqId);
 
+            if( res  == null ) throw new NullPointerException();
+
             return res;
         }
-        catch (InterruptedException | ExecutionException e)
+        catch (InterruptedException | ExecutionException | NullPointerException e)
         {
-            e.printStackTrace();
+            System.err.println("HISTORY Request Failed!");
             return null;
         }
     }

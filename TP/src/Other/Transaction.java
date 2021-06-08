@@ -150,4 +150,9 @@ public class Transaction implements Serializable
 
         return sb.toString();
     }
+
+    public void setInternal_id(long internal_id)
+    {
+        this.internal_id = internal_id;
+    }
 }
