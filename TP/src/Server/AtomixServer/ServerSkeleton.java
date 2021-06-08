@@ -33,7 +33,8 @@ public class ServerSkeleton{
     private Bank Bank;
 
 
-    public ServerSkeleton(int port, int connect_to){
+    public ServerSkeleton(int port, int connect_to)
+    {
 
         this.port = port;
         this.s    = Serializer.builder().withTypes(
@@ -104,6 +105,7 @@ public class ServerSkeleton{
 
 
         // So it writes state when killed
+        // Very simple way to have persistence of state
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {

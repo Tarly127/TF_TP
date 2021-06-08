@@ -34,7 +34,8 @@ public class ClientStub implements BankInterface
     private Map<Integer, CompletableFuture<Long>>              interest_requests;
     private Map<Integer, CompletableFuture<List<Transaction>>> history_requests;
 
-    private Map<Integer, Integer> server_responses;
+    private Map<Integer, Integer> server_responses; // may be useless? only truly useful if client doesn't block
+                                                    // after sending requests
 
     public ClientStub(int port)
     {

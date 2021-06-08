@@ -38,6 +38,7 @@ class FullBankTransfer
     }
 }
 
+// Simple Generic Tuple with two elements
 class MyPair<U,V>
 {
     private U x;
@@ -68,34 +69,45 @@ class MyPair<U,V>
 
 public class SpreadMiddleware {
 
-    private static final short state_transfer_partial = 9001;     // Guião 3
-    private static final short state_transfer_full    = 9002;     // Guião 3
-    private static final short state_transfer_request = 9003;     // Guião 3
-    private static final short state_update           = 9004;     // Guião 5
-    private static final int   MAX_HIST_SIZE          = 100;      // Guião 3
+    private static final short state_transfer_partial = 9001;
+    private static final short state_transfer_full    = 9002;
+    private static final short state_transfer_request = 9003;
+    private static final short state_update           = 9004;
+    private static final int   MAX_HIST_SIZE          = 100;
 
-    private SpreadConnection sconn;
-    private SpreadGroup sg;
+    private SpreadConnection sconn;                                     // Spread connection to daemon
+    private SpreadGroup sg;                                             // Communication Group I'm in
+    private Serializer s;                                               // Atomix Serializer to serialize messages
+    private Bank Bank;                                                  // I have to have a pointer to the same Bank
+                                                                        // the Skeleton has so I can update it
 
-    private Serializer s;
+    // Using Atomic variables, and their associated atomic operations will decrease the number of calls to the kernel
+    // for mutexes
+    private AtomicLong                         last_msg_seen;           // last message received from client (or leader)
+    private AtomicLong                         transactions_completed;  // last operation finished
 
-    private boolean                            is_leader;
-    private boolean                            is_utd;
-    private boolean                            no_st;
-    private AtomicLong                         last_msg_seen;
-    private AtomicLong                         transactions_completed;
-    private LinkedList<Transaction>            history;
-    private LinkedList<SpreadGroup>            leader_queue;
-    private LinkedList<SpreadMessage>          req_queue;
-    private ReentrantLock                      queue_lock;
-    private ReentrantLock                      history_lock;
-    private ReentrantLock                      unanswered_lock;
+    private boolean                            is_leader;               // whether I'm the leader or not
+    private boolean                            is_utd;                  // whether I'm up to date or not
+    private boolean                            no_st;                   // whether I've had a state transfer or not
 
-    private Map<Long, CompletableFuture<Long>> unanswered_reqs;
-    private CompletableFuture<Long> leader;
-    private CompletableFuture<Long> updated;
+    private LinkedList<Transaction>            history;                 // history of the last MAX_HIST_SIZE requests
+    private LinkedList<SpreadGroup>            leader_queue;            // queue of processes that may be the leader
+    private LinkedList<SpreadMessage>          req_queue;               // queue of requests to be sent to backups
 
-    private Bank Bank; // Cringe, but it has to be done!
+    private ReentrantLock                      queue_lock;              // lock associated with req_queue
+    private ReentrantLock                      history_lock;            // lock associated with history
+    private ReentrantLock                      unanswered_lock;         // lock associated with unanswered_reqs
+
+    private Map<Long, CompletableFuture<Long>> unanswered_reqs;         // store the requests in transit between
+                                                                        // primary and the backups, so the answer
+                                                                        // may later be sent to the client
+
+    private CompletableFuture<Long> leader;                             // will be completed when I become the leader
+    private CompletableFuture<Long> updated;                            // will be completed when I'm up to date
+
+
+
+
 
     public SpreadMiddleware(Bank bank, int port, int connect_to, long lms,
                             CompletableFuture<Long> in_leader,
@@ -103,12 +115,16 @@ public class SpreadMiddleware {
     {
         try
         {
-            ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-            ses.scheduleAtFixedRate(() -> {
-                if(is_leader) System.out.println("I'm the leader!");
-                System.out.println(last_msg_seen.longValue() + "::" + transactions_completed.longValue());
-                System.out.println("Number of requests enqueued: " + unanswered_reqs.size());
-            }, 0, 10, TimeUnit.SECONDS);
+            // *** For debugging purposes only ***
+            //ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+            //ses.scheduleAtFixedRate(() -> {
+            //    if(is_leader)
+            //        System.out.println("I'm the leader!");
+            //
+            //    System.out.println(last_msg_seen.longValue() + "::" + transactions_completed.longValue());
+            //    System.out.println("Number of requests enqueued: " + unanswered_reqs.size());
+            //
+            //}, 0, 10, TimeUnit.SECONDS);
 
 
             this.history                = new LinkedList<>();
@@ -136,13 +152,15 @@ public class SpreadMiddleware {
                                             MyPair.class,
                                             Address.class
                                         ).build();
+
             this.sconn = new SpreadConnection();
-            this.sconn.connect(InetAddress.getByName("localhost"), connect_to, "server:" + port, false, true);
+            this.sconn.connect(InetAddress.getByName("localhost"), connect_to,
+                    "server:" + port, false, true);
 
             this.sg = new SpreadGroup();
             this.sg.join(this.sconn, "servers");
 
-            // when I join the Group, i will send a message to ask others to update_backups my state
+            // when I join the Group, i will send a message to ask others to update my state
             SpreadMessage str = new SpreadMessage();
 
             str.setData(s.encode(last_msg_seen.longValue()));
@@ -354,13 +372,17 @@ public class SpreadMiddleware {
                             }
                             // we don't care if others join after us
                         }
-                        else if(info.isCausedByDisconnect() || info.isCausedByLeave()) {
+                        else if(info.isCausedByDisconnect() || info.isCausedByLeave())
+                        {
+                            // If someone else left, we need to check if it's out turn to be the leader
+
                             leader_queue.remove(info.getLeft());
 
                             is_leader = leader_queue.size() == 1;
 
                             // If I'm the leader, I'll start receiving requests from client
-                            if (is_leader) {
+                            if ( is_leader )
+                            {
                                 System.out.println("Message seen when I became leader: " +
                                         last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                 leader.complete(last_msg_seen.longValue());
@@ -376,25 +398,26 @@ public class SpreadMiddleware {
         }
     }
 
+    // Public methods, ServerSkeleton needs access to all of these
+
     public boolean is_ready ()
     {
-
+        // A Server is only ready to receive messages from the various clients when it's up to date and is also the
+        // leader, although being the leader usually means being up to date
         return this.is_leader && this.is_utd;
     }
 
     public long getTransactions_completed()
     {
+        // There may be some transactions that have not been completed yet, but have been marked as such (they're
+        // between the point where we update transactions_completed and the clearing of the queue), and, as such, we
+        // have to account for that difference carefully
         return transactions_completed.longValue() - req_queue.size();
     }
 
-
-    // Private methods
-
-    // update_backups all backups about the new transaction
+    // update all backups about the new transaction
     public void update_backups(Address a, Transaction t, CompletableFuture<Long> cf)
     {
-
-        //System.out.println("From " + a.toString() + " received req. " + t.getReq_id());
         // get the internal ID (an atomic operation)
         long my_lms = this.last_msg_seen.getAndIncrement();
 
@@ -424,16 +447,18 @@ public class SpreadMiddleware {
         // Add the new request to the request queue
         add_to_req_queue(su_msg);
 
-        //if(last_msg_seen.longValue() != transactions_completed.longValue())
 
-
+        // we only enter this chunk if we see there are no concurrent requests happening
+        // that means checking if the number of messages seen equals the number of messages processed, which only
+        // happens when there are no more threads active at the same time as this one
         if( last_msg_seen.longValue() == transactions_completed.longValue() )
         {
+            // if there are none, empty out the queue
             try
             {
                 queue_lock.lock();
 
-                while(!req_queue.isEmpty())
+                while( !req_queue.isEmpty() )
                 {
                     sconn.multicast(req_queue.removeFirst());
                 }
@@ -445,11 +470,10 @@ public class SpreadMiddleware {
                 e.printStackTrace();
             }
         }
-        //else
-        //    System.out.println("(" + last_msg_seen.longValue() + "," + transactions_completed.longValue() + ") ... " +
-        //    "(" + t.getReq_id() + ")");
-
     }
+
+
+    // Private methods
 
     private void update_bank(Transaction t)
     {
@@ -457,13 +481,11 @@ public class SpreadMiddleware {
         {
             case Transaction.MOVEMENT :
             {
-                //System.out.println("Update from a MOVEMENT");
                 Bank.set(t.getAccount_to(), t.getAmount_after_to());
                 break;
             }
             case Transaction.INTEREST:
             {
-                //System.out.println("Update from INTEREST");
                 Bank.interest();
                 break;
             }
@@ -494,9 +516,6 @@ public class SpreadMiddleware {
     private void add_to_ureqs(CompletableFuture<Long> cf, long my_lms)
     {
         unanswered_lock.lock();
-
-        if(unanswered_reqs.containsKey(my_lms))
-            System.err.println(my_lms + " already inserted!!!!!");
 
         unanswered_reqs.put(my_lms, cf);
 

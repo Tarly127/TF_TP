@@ -6,30 +6,15 @@
       <change beforePath="$PROJECT_DIR$/save/server_state_12345.obj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/save/server_state_12346.obj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BankServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client/ClientStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Other/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bank/src/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bank/src/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Bank/src/Bank.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Bank/src/Bank.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BankServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Other/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Other/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/LockFreeAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/LockFreeBank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/ServerSkeleton$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/ServerSkeleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Bank/src/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Bank/src/Bank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/BankClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Other/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Other/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/FullBankTransfer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/MyPair.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadMiddleware$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadMiddleware.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,19 +32,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="866">
-              <caret line="319" column="103" selection-start-line="319" selection-start-column="103" selection-end-line="319" selection-end-column="103" />
+            <state relative-caret-position="161">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3403#3841#0" />
                 <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#transfer_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#history_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#interest_handler#0;class#ServerSkeleton#0" />
                 <element signature="method#read_state#0;class#ServerSkeleton#0" />
+                <element signature="method#store_state#0;class#ServerSkeleton#0" />
                 <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
                 <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
               </folding>
@@ -67,20 +54,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="366" column="29" selection-start-line="366" selection-start-column="29" selection-end-line="366" selection-end-column="29" />
+            <state relative-caret-position="518">
+              <caret line="166" column="48" lean-forward="true" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="class#FullBankTransfer#0" />
                 <element signature="class#MyPair#0" />
-                <element signature="e#5663#6500#1" />
+                <element signature="e#5587#13156#0" />
                 <element signature="e#6578#7539#1" />
                 <element signature="e#7617#11373#1" />
                 <element signature="e#11441#13134#1" />
+                <element signature="method#membershipMessageReceived#0;class#5720:15992" />
                 <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
-                <element signature="e#16335#16336#0" expanded="true" />
+                <element signature="method#getTransactions_completed#0;class#SpreadMiddleware#0" />
+                <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
                 <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
                 <element signature="method#add_to_history#0;class#SpreadMiddleware#0" />
                 <element signature="method#add_to_ureqs#0;class#SpreadMiddleware#0" />
@@ -93,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="217">
+              <caret line="41" column="42" lean-forward="true" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2440#3143#0" />
@@ -107,18 +97,6 @@
                 <element signature="method#set#0;class#ClientStub#0" />
                 <element signature="method#transfer#0;class#ClientStub#0" />
                 <element signature="method#interest#0;class#ClientStub#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BankClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -174,10 +152,10 @@
         <option value="$PROJECT_DIR$/src/Server/ServerSkeleton.java" />
         <option value="$PROJECT_DIR$/src/Other/Transaction.java" />
         <option value="$PROJECT_DIR$/src/BankServer.java" />
-        <option value="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" />
-        <option value="$PROJECT_DIR$/src/Client/ClientStub.java" />
         <option value="$PROJECT_DIR$/src/BankClient.java" />
+        <option value="$PROJECT_DIR$/src/Client/ClientStub.java" />
         <option value="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" />
+        <option value="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" />
       </list>
     </option>
   </component>
@@ -220,6 +198,11 @@
             <path>
               <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
               <item name="TP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TP" type="462c0819:PsiDirectoryNode" />
+              <item name="save" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
@@ -411,7 +394,7 @@
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1366" height="745" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15936556" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15936556" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="DB Browser" order="3" show_stripe_button="false" />
@@ -715,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BankClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+        <state relative-caret-position="90">
+          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -725,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/ClientStub.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="217">
+          <caret line="41" column="42" lean-forward="true" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2440#3143#0" />
@@ -743,41 +726,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="866">
-          <caret line="319" column="103" selection-start-line="319" selection-start-column="103" selection-end-line="319" selection-end-column="103" />
+        <state relative-caret-position="518">
+          <caret line="166" column="48" lean-forward="true" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="class#FullBankTransfer#0" />
+            <element signature="class#MyPair#0" />
+            <element signature="e#5587#13156#0" />
+            <element signature="e#6578#7539#1" />
+            <element signature="e#7617#11373#1" />
+            <element signature="e#11441#13134#1" />
+            <element signature="method#membershipMessageReceived#0;class#5720:15992" />
+            <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
+            <element signature="method#getTransactions_completed#0;class#SpreadMiddleware#0" />
+            <element signature="method#update_backups#0;class#SpreadMiddleware#0" />
+            <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_history#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_ureqs#0;class#SpreadMiddleware#0" />
+            <element signature="method#add_to_#0;class#SpreadMiddleware#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3403#3841#0" />
             <element signature="method#movement_handler#0;class#ServerSkeleton#0" />
             <element signature="method#balance_handler#0;class#ServerSkeleton#0" />
             <element signature="method#transfer_handler#0;class#ServerSkeleton#0" />
             <element signature="method#history_handler#0;class#ServerSkeleton#0" />
             <element signature="method#interest_handler#0;class#ServerSkeleton#0" />
             <element signature="method#read_state#0;class#ServerSkeleton#0" />
+            <element signature="method#store_state#0;class#ServerSkeleton#0" />
             <element signature="method#start_atomix#0;class#ServerSkeleton#0" />
             <element signature="method#stop_atomix#0;class#ServerSkeleton#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="366" column="29" selection-start-line="366" selection-start-column="29" selection-end-line="366" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#MyPair#0" />
-            <element signature="e#5663#6500#1" />
-            <element signature="e#6578#7539#1" />
-            <element signature="e#7617#11373#1" />
-            <element signature="e#11441#13134#1" />
-            <element signature="method#is_ready#0;class#SpreadMiddleware#0" />
-            <element signature="e#16335#16336#0" expanded="true" />
-            <element signature="method#update_bank#0;class#SpreadMiddleware#0" />
-            <element signature="method#add_to_history#0;class#SpreadMiddleware#0" />
-            <element signature="method#add_to_ureqs#0;class#SpreadMiddleware#0" />
-            <element signature="method#add_to_#0;class#SpreadMiddleware#0" />
           </folding>
         </state>
       </provider>
