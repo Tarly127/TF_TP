@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/ClientStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client/ClientStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/MyPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/MyPair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/BankClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/MyPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/MyPair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,13 +22,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>case</find>
-      <find>TODO</find>
-      <find>system</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -246,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622995317251</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Localhost">
+      <created>1623196336208</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623196336208</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,17 +265,18 @@
     <MESSAGE value="Initial commit (contains stuff from the various practical guides plus a few changes)" />
     <MESSAGE value="Progress in the SpreadMiddleware" />
     <MESSAGE value="Requisitos mínimos feitos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Requisitos mínimos feitos" />
+    <MESSAGE value="Localhost" />
+    <option name="LAST_COMMIT_MESSAGE" value="Localhost" />
   </component>
   <component name="WindowStateProjectService">
     <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1623195819719">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623195819719" />
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623196305501">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623196336098">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196305501" />
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196336098" />
     <state width="1282" height="392" key="GridCell.Tab.0.bottom" timestamp="1623196305545">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -311,6 +297,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1623195756798" />
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2" timestamp="1623196340064">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196340064" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
