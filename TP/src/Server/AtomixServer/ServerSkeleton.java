@@ -347,7 +347,7 @@ public class ServerSkeleton{
     {
         if(ms == null)
         {
-            ms = new NettyMessagingService("ServerSkeleton", Address.from(REQ_PORT), new MessagingConfig());
+            ms = new NettyMessagingService("ServerSkeleton", Address.from("localhost", REQ_PORT), new MessagingConfig());
 
             ms.registerHandler("movement-req", (a,m) -> { movement_handler(a,m); }, es);
             ms.registerHandler("balance-req",  (a,m) -> { balance_handler (a,m); }, es);
@@ -356,6 +356,8 @@ public class ServerSkeleton{
             ms.registerHandler("interest-req", (a,m) -> { interest_handler(a,m); }, es);
 
             ms.start();
+
+            System.out.println("Server listening on port " + REQ_PORT + "...");
         }
     }
 

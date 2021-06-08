@@ -18,6 +18,7 @@ public class ClientStub implements BankInterface
 {
 
     private static final int TIMEOUT_LIMIT = 10;
+    private static final int REQ_PORT = 10000;
 
     private NettyMessagingService ms;
     private ScheduledExecutorService es;
@@ -39,10 +40,10 @@ public class ClientStub implements BankInterface
 
     public ClientStub(int port)
     {
-        this.address = Address.from(port);
+        this.address = Address.from("localhost",port);
 
         // This address will be fixed and of my choosing
-        this.toAddress = Address.from(10000);
+        this.toAddress = Address.from("localhost", REQ_PORT);
 
         this.es = Executors.newScheduledThreadPool(1);
         this.ms = new NettyMessagingService("ClientStub", this.address, new MessagingConfig());
