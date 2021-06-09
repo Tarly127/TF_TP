@@ -70,16 +70,6 @@ public class ServerSkeleton{
         // Deal with the Leader
         this.es.submit(() ->
         {
-            try{
-                last_msg_seen = fut_leader.get();
-
-                if( spread_gv.is_ready() )
-                    start_atomix();
-            }
-            catch (InterruptedException | ExecutionException e)
-            {
-                e.printStackTrace();
-            }
 
         });
 
@@ -373,6 +363,30 @@ public class ServerSkeleton{
             ms.unregisterHandler("history-req" );
             ms.unregisterHandler("interest-req");
         }
+    }
+
+    private void listen_for_leader()
+    {
+        try
+        {
+            last_msg_seen = fut_leader.get();
+
+            if (spread_gv.is_ready())
+                start_atomix();
+
+            else
+                stop_atomix();
+
+            this.fut_leader = new CompletableFuture<>();
+
+            this.spread_gv.set_fut_leader(this.fut_leader);
+
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        listen_for_leader();
     }
 
 }

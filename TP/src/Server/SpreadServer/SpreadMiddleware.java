@@ -2,6 +2,8 @@ package Server.SpreadServer;
 
 import Bank.src.Account;
 import Bank.src.Bank;
+import Messages.ReqMessage;
+import Other.Election;
 import Other.Transaction;
 import Server.DataPackets.LockFreeAccount;
 import Server.DataPackets.LockFreeBank;
@@ -73,13 +75,16 @@ public class SpreadMiddleware {
     private static final short state_transfer_full    = 9002;
     private static final short state_transfer_request = 9003;
     private static final short state_update           = 9004;
+    private static final short leader_election        = 9005;
     private static final int   MAX_HIST_SIZE          = 100;
+    private static final int   TOTAL_MEMBERS = 3;
 
     private SpreadConnection sconn;                                     // Spread connection to daemon
     private SpreadGroup sg;                                             // Communication Group I'm in
     private Serializer s;                                               // Atomix Serializer to serialize messages
     private Bank Bank;                                                  // I have to have a pointer to the same Bank
                                                                         // the Skeleton has so I can update it
+    private Election e;                                                 // Leader election after partition
 
     // Using Atomic variables, and their associated atomic operations will decrease the number of calls to the kernel
     // for mutexes
@@ -92,6 +97,7 @@ public class SpreadMiddleware {
 
     private LinkedList<Transaction>            history;                 // history of the last MAX_HIST_SIZE requests
     private LinkedList<SpreadGroup>            leader_queue;            // queue of processes that may be the leader
+    private LinkedList<String>                 partner_queue;           // queue of processes in group
     private LinkedList<SpreadMessage>          req_queue;               // queue of requests to be sent to backups
 
     private ReentrantLock                      queue_lock;              // lock associated with req_queue
@@ -129,6 +135,7 @@ public class SpreadMiddleware {
 
             this.history                = new LinkedList<>();
             this.leader_queue           = new LinkedList<>();
+            this.partner_queue          = new LinkedList<>();
             this.req_queue              = new LinkedList<>();
             this.unanswered_reqs        = new HashMap<>();
             this.leader                 = in_leader;
@@ -152,6 +159,14 @@ public class SpreadMiddleware {
                                             MyPair.class,
                                             Address.class
                                         ).build();
+
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    System.out.println("Req queue size: " + req_queue.size());
+                    System.out.println("Unanswered req size: " + unanswered_reqs.size());
+                }
+            });
 
             this.sconn = new SpreadConnection();
             this.sconn.connect(InetAddress.getByName("localhost"), connect_to,
@@ -232,6 +247,7 @@ public class SpreadMiddleware {
                         }
                         case state_transfer_request:
                         {
+                            System.out.println("History: " + history.size());
                             // we should be careful not to process requests like these if we're not up to date
                             // or if we're the only member of the comm group, because that means we're the ones
                             // who sent it
@@ -312,12 +328,14 @@ public class SpreadMiddleware {
 
                                 update_bank(su.getY());
 
+                                add_to_history(su.getY());
+
                                 is_utd = true;
 
                                 last_msg_seen.incrementAndGet();
                                 transactions_completed.incrementAndGet();
 
-                                //System.out.println("Leader informed me of a new client request");
+                                System.out.println("Leader informed me of a new client request");
                             }
                             // if I am, we'll do something different...
                             else
@@ -336,6 +354,71 @@ public class SpreadMiddleware {
                             }
                             break;
                         }
+                        case leader_election:
+                        {
+                            MyPair<Boolean, Long> myPair = s.decode(msg.getData());
+                            e.process_candidature(msg.getSender(), myPair.getY(), myPair.getX());
+
+                            if(e.getCompleted_candidatures() == e.getPotencial_leaders().size())
+                            {
+                                System.out.println("--- Election finished, leader is: " + e.getCurr_leader() + " ---");
+                                if(e.getCurr_leader().equals(sconn.getPrivateGroup().toString()))
+                                {   // I'm leader
+
+                                    is_leader = true;
+                                    System.out.println("Message seen when I became leader(after transitional view:) " +
+                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    leader.complete(last_msg_seen.longValue());
+
+                                    if(req_queue.size() > 0)
+                                    {
+                                        if( last_msg_seen.longValue() == transactions_completed.longValue())
+                                        {
+                                            // if there are none, empty out the queue
+                                            try
+                                            {
+                                                queue_lock.lock();
+
+                                                while( !req_queue.isEmpty() )
+                                                {
+                                                    sconn.multicast(req_queue.removeFirst());
+                                                }
+
+                                                queue_lock.unlock();
+                                            }
+                                            catch (SpreadException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {   // I'm not leader
+                                    if(partner_queue.size() < e.getCompleted_candidatures())
+                                    {   // I'm back after merge, i will send a message to ask others to update my state
+
+                                        partner_queue.clear();
+                                        partner_queue.addAll(e.getPotencial_leaders());
+
+                                        str.setData(s.encode(last_msg_seen.longValue()));
+                                        str.setType(state_transfer_request);
+                                        str.setReliable();
+                                        str.setSafe();
+                                        str.addGroup(sg);
+
+                                        try
+                                        {
+                                            sconn.multicast(str);
+                                        }
+                                        catch (SpreadException e)
+                                        {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -348,7 +431,11 @@ public class SpreadMiddleware {
 
                     if( info.isRegularMembership() ) {
                         if ( info.isCausedByJoin() )
-                        {
+                        {   // store the list of servers in this group
+                            SpreadGroup[] members = info.getMembers();
+                            partner_queue.clear();
+                            partner_queue.addAll(Collections.singleton(Arrays.toString(members)));
+
                             if( leader_queue.size() == 0 )
                             {   //we we're the ones joining
 
@@ -372,11 +459,55 @@ public class SpreadMiddleware {
                             }
                             // we don't care if others join after us
                         }
+                        else if(info.isTransition() && is_leader)
+                        {
+                            is_leader = false;
+                            System.out.println("Message seen when I recieved transitional view: " +
+                                    last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                            leader.complete(last_msg_seen.longValue());
+                        }
+                        else if(info.isCausedByNetwork())
+                        {   // leader election
+                            SpreadGroup[] members = msg.getGroups();
+                            System.out.println("Members in this partition after transitional view: " + Arrays.toString(members));
+
+                            if(members.length > TOTAL_MEMBERS/2)
+                            {   // majority group
+                                e = new Election(members);
+
+                                MyPair<Boolean, Long> myPair = new MyPair<>(is_leader, last_msg_seen.longValue());
+                                str.setData(s.encode(myPair));
+                                str.setType(leader_election);
+                                str.setReliable();
+                                str.setSafe();
+                                str.addGroup(sg);
+                                try
+                                {
+                                    sconn.multicast(str);
+                                }
+                                catch (SpreadException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            else{
+                                if(is_leader)
+                                {   // Not a member of majority and leader
+                                    is_leader = false;
+                                    System.out.println("Message seen when I left as leader: " +
+                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    leader.complete(last_msg_seen.longValue());
+                                }
+                                is_utd = false;
+                            }
+                        }
                         else if(info.isCausedByDisconnect() || info.isCausedByLeave())
                         {
                             // If someone else left, we need to check if it's out turn to be the leader
 
                             leader_queue.remove(info.getLeft());
+                            partner_queue.remove(info.getLeft().toString());
 
                             is_leader = leader_queue.size() == 1;
 
@@ -451,7 +582,7 @@ public class SpreadMiddleware {
         // we only enter this chunk if we see there are no concurrent requests happening
         // that means checking if the number of messages seen equals the number of messages processed, which only
         // happens when there are no more threads active at the same time as this one
-        if( last_msg_seen.longValue() == transactions_completed.longValue() )
+        if( last_msg_seen.longValue() == transactions_completed.longValue() && is_leader )
         {
             // if there are none, empty out the queue
             try
@@ -529,5 +660,10 @@ public class SpreadMiddleware {
         req_queue.addLast(su_msg);
 
         this.queue_lock.unlock();
+    }
+
+    public void set_fut_leader(CompletableFuture<Long> fl)
+    {
+        this.leader = fl;
     }
 }

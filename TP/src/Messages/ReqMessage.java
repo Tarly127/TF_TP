@@ -3,7 +3,7 @@ package Messages;
 public class ReqMessage {
     private int accountId;
     private int toAccountId;
-    private int type; // 0 -> balance; 1 -> movement; 2 -> transfer
+    private int type; // 0 -> balance; 1 -> movement; 2 -> transfer; 3 -> election
     private int reqId;
     private float amount; //if applicable
 
@@ -22,6 +22,7 @@ public class ReqMessage {
         this.reqId = reqId;
         this.amount = amount;
     }
+
 
     public int getAccountId() {
         return accountId;

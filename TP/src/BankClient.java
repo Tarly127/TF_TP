@@ -20,10 +20,10 @@ public class BankClient {
             try
             {
                 bank.movement(1,1);
-
+                Thread.sleep(6000);
                 System.out.println("Ended request " + i);
             }
-            catch (NullPointerException e)
+            catch (NullPointerException | InterruptedException e)
             {
                 System.out.println("Timed out on " + i + ";");
             }

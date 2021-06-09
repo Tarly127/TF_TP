@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Other/Election.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/server_state_12345.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BankClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Messages/ReqMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Messages/ReqMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BankClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BankClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Messages/ReqMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Messages/ReqMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/AtomixServer/ServerSkeleton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/FullBankTransfer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/FullBankTransfer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/MyPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/MyPair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Client/ClientStub.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Messages/ReqMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Messages/ReqMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/FullBankTransfer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/FullBankTransfer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/MyPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/MyPair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +80,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.SingleClientA">
+  <component name="RunManager" selected="Compound.Servers">
     <configuration name="Server_A" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BankServer" />
       <module name="Guiao1" />
@@ -139,10 +161,9 @@
       <method v="2" />
     </configuration>
     <configuration name="Servers" type="CompoundRunConfigurationType">
-      <toRun name="Server_D" type="Application" />
+      <toRun name="Server_A" type="Application" />
       <toRun name="Server_B" type="Application" />
       <toRun name="Server_C" type="Application" />
-      <toRun name="Server_A" type="Application" />
       <method v="2" />
     </configuration>
     <configuration name="TwoBrothers" type="CompoundRunConfigurationType">
@@ -174,6 +195,7 @@
     <option name="viewStates">
       <list>
         <serviceView>
+          <option name="contentProportion" value="0.14293508" />
           <treeState>
             <expand>
               <path>
@@ -184,6 +206,11 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Application" type="7427dc5b:ServiceModel$ServiceGroupNode" />
                 <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Application" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Not Started" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
             </expand>
             <select />
@@ -231,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623196336208</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Localhost">
+      <created>1623196402688</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623196402688</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,38 +303,42 @@
     <option name="LAST_COMMIT_MESSAGE" value="Localhost" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1623195819719">
+    <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1623246210000">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623195819719" />
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623196336098">
+    <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623246210000" />
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623257813982">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196336098" />
-    <state width="1282" height="392" key="GridCell.Tab.0.bottom" timestamp="1623196305545">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623257813982" />
+    <state width="1570" height="294" key="GridCell.Tab.0.bottom" timestamp="1623257645416">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1282" height="392" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623196305545" />
-    <state width="1282" height="392" key="GridCell.Tab.0.center" timestamp="1623196305544">
+    <state width="1570" height="294" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
+    <state width="1570" height="294" key="GridCell.Tab.0.center" timestamp="1623257645416">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1282" height="392" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623196305544" />
-    <state width="1282" height="392" key="GridCell.Tab.0.left" timestamp="1623196305544">
+    <state width="1570" height="294" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
+    <state width="1570" height="294" key="GridCell.Tab.0.left" timestamp="1623257645416">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1282" height="392" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623196305544" />
-    <state width="1282" height="392" key="GridCell.Tab.0.right" timestamp="1623196305544">
+    <state width="1570" height="294" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
+    <state width="1570" height="294" key="GridCell.Tab.0.right" timestamp="1623257645416">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1282" height="392" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623196305544" />
+    <state width="1570" height="294" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor" timestamp="1623195756798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1623195756798" />
-    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2" timestamp="1623196340064">
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2" timestamp="1623196412439">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196340064" />
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196412439" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1623253147583">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1623253147583" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -310,6 +348,6 @@
     <SUITE FILE_PATH="coverage/atomix$Server_B.ic" NAME="Server_B Coverage Results" MODIFIED="1622932265390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$Server_A.ic" NAME="Server_A Coverage Results" MODIFIED="1622994385367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$SingleClientB.ic" NAME="SingleClientB Coverage Results" MODIFIED="1615229105002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/atomix$SingleClientA.ic" NAME="SingleClientA Coverage Results" MODIFIED="1623103469687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/atomix$SingleClientA.ic" NAME="SingleClientA Coverage Results" MODIFIED="1623246815467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
