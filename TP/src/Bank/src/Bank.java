@@ -86,7 +86,14 @@ public class Bank implements BankInterface, Serializable
     {
         for ( Map.Entry<?,Account> e : this.accounts.entrySet() )
         {
+            e.getValue().lock();
+        }
+        
+        for ( Map.Entry<?,Account> e : this.accounts.entrySet() )
+        {
             e.getValue().interest(this.interest);
+
+            e.getValue().unlock();
         }
     }
 

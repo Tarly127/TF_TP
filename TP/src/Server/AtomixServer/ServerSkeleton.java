@@ -38,11 +38,11 @@ public class ServerSkeleton{
 
         this.port = port;
         this.s    = Serializer.builder().withTypes(
-                ReqMessage.class,
-                ResMessage.class,
-                Transaction.class,
-                LocalDateTime.class
-        ).build();
+                                            ReqMessage.class,
+                                            ResMessage.class,
+                                            Transaction.class,
+                                            LocalDateTime.class
+                                        ).build();
         this.es              = Executors.newFixedThreadPool(NO_THREADS);
         this.ses             = Executors.newScheduledThreadPool(1); // can take this out later, only here for debbuging
 

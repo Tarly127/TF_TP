@@ -119,9 +119,20 @@ public class Account implements Serializable
         return account_id;
     }
 
-    public void setHistory(Queue<Transaction> history) {
+    public void setHistory(Queue<Transaction> history)
+    {
         lock.lock();
         this.history = history;
         lock.unlock();
+    }
+
+    public void lock()
+    {
+        this.lock.lock();
+    }
+
+    public void unlock()
+    {
+        this.lock.unlock();
     }
 }

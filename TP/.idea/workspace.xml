@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="Partitions">
+    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bank/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bank/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bank/src/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bank/src/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,12 +22,12 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-855">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            <state relative-caret-position="-50">
+              <caret line="35" column="51" lean-forward="true" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -36,8 +35,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Bank/src/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="128">
+              <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bank/src/Account.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="547">
+              <caret line="135" column="27" selection-start-line="135" selection-start-column="27" selection-end-line="135" selection-end-column="27" />
+              <folding>
+                <element signature="e#2517#2518#0" expanded="true" />
+                <element signature="e#2533#2534#0" expanded="true" />
+                <element signature="e#2585#2586#0" expanded="true" />
+                <element signature="e#2609#2610#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,13 +76,16 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Bank/include/BankInterface.java" />
+        <option value="$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/Account.java" />
+        <option value="$PROJECT_DIR$/src/Bank/src/Bank.java" />
       </list>
     </option>
   </component>
@@ -80,9 +97,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="805" />
+    <option name="x" value="1440" />
+    <option name="y" value="74" />
+    <option name="width" value="1366" />
+    <option name="height" value="745" />
   </component>
   <component name="ProjectId" id="1tgfLAj6FcFjk5Q4B1HSEzP7keC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -114,55 +132,14 @@
               <item name="TP" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Bank" type="462c0819:PsiDirectoryNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Bank" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Other" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="AtomixServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="SpreadServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="atomix" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TP" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="SpreadServer" type="462c0819:PsiDirectoryNode" />
-              <item name="SpreadMiddleware.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -175,11 +152,16 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ToolWindowAnt Build.ShowToolbar" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -394,10 +376,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="805" extended-state="6" />
+    <frame x="1440" y="74" width="1366" height="745" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23676682" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24924472" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -523,6 +505,13 @@
     <SUITE FILE_PATH="coverage/atomix$Server_A.ic" NAME="Server_A Coverage Results" MODIFIED="1622994385367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="35" column="51" lean-forward="true" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bank/include/BankInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -530,19 +519,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
+    <entry file="file://$PROJECT_DIR$/src/Bank/src/Account.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-855">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="547">
+          <caret line="135" column="27" selection-start-line="135" selection-start-column="27" selection-end-line="135" selection-end-column="27" />
+          <folding>
+            <element signature="e#2517#2518#0" expanded="true" />
+            <element signature="e#2533#2534#0" expanded="true" />
+            <element signature="e#2585#2586#0" expanded="true" />
+            <element signature="e#2609#2610#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bank/src/Bank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="128">
+          <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Guiao1</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
