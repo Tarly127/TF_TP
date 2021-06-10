@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="1119bd11-ae4e-4c4b-a6da-1791a599d6be" name="Default Changelist" comment="Partitions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/SpreadServer/SpreadMiddleware.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Server/SpreadServer/SpreadMiddleware.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,6 +63,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -194,7 +198,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Compound.Servers">
+  <component name="RunManager" selected="Compound.Clients">
     <configuration name="Server_A" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BankServer" />
       <module name="Guiao1" />
@@ -319,7 +323,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Application" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
@@ -379,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623196402688</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Partitions">
+      <created>1623257832296</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1623257832296</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -456,41 +467,46 @@
     <MESSAGE value="Progress in the SpreadMiddleware" />
     <MESSAGE value="Requisitos mínimos feitos" />
     <MESSAGE value="Localhost" />
-    <option name="LAST_COMMIT_MESSAGE" value="Localhost" />
+    <MESSAGE value="Partitions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partitions" />
   </component>
   <component name="WindowStateProjectService">
     <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1623246210000">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623246210000" />
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623257813982">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623281750972">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623257813982" />
-    <state width="1570" height="294" key="GridCell.Tab.0.bottom" timestamp="1623257645416">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623281750972" />
+    <state width="1570" height="330" key="GridCell.Tab.0.bottom" timestamp="1623282945053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="294" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
-    <state width="1570" height="294" key="GridCell.Tab.0.center" timestamp="1623257645416">
+    <state width="1570" height="330" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945053" />
+    <state width="1570" height="330" key="GridCell.Tab.0.center" timestamp="1623282945052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="294" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
-    <state width="1570" height="294" key="GridCell.Tab.0.left" timestamp="1623257645416">
+    <state width="1570" height="330" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945052" />
+    <state width="1570" height="330" key="GridCell.Tab.0.left" timestamp="1623282945051">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="294" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
-    <state width="1570" height="294" key="GridCell.Tab.0.right" timestamp="1623257645416">
+    <state width="1570" height="330" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945051" />
+    <state width="1570" height="330" key="GridCell.Tab.0.right" timestamp="1623282945052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="294" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623257645416" />
+    <state width="1570" height="330" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945052" />
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor" timestamp="1623195756798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1623195756798" />
-    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2" timestamp="1623196412439">
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2" timestamp="1623257834329">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623196412439" />
+    <state x="455" y="192" width="1000" height="649" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623257834329" />
+    <state x="713" y="421" width="483" height="190" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1623281756245">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="713" y="421" width="483" height="190" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1623281756245" />
     <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1623253147583">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

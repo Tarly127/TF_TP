@@ -94,6 +94,7 @@ public class SpreadMiddleware {
     private boolean                            is_leader;               // whether I'm the leader or not
     private boolean                            is_utd;                  // whether I'm up to date or not
     private boolean                            no_st;                   // whether I've had a state transfer or not
+    private boolean                            election_decided;        // whether election is decided or not
 
     private LinkedList<Transaction>            history;                 // history of the last MAX_HIST_SIZE requests
     private LinkedList<SpreadGroup>            leader_queue;            // queue of processes that may be the leader
@@ -140,6 +141,7 @@ public class SpreadMiddleware {
             this.unanswered_reqs        = new HashMap<>();
             this.leader                 = in_leader;
             this.updated                = in_updated;
+            this.election_decided       = true;
             this.Bank                   = bank;
             this.last_msg_seen          = new AtomicLong(lms);
             this.transactions_completed = new AtomicLong(lms);
@@ -356,6 +358,7 @@ public class SpreadMiddleware {
                         }
                         case leader_election:
                         {
+                            election_decided = false;
                             MyPair<Boolean, Long> myPair = s.decode(msg.getData());
                             e.process_candidature(msg.getSender(), myPair.getY(), myPair.getX());
 
@@ -369,6 +372,8 @@ public class SpreadMiddleware {
                                     System.out.println("Message seen when I became leader(after transitional view:) " +
                                             last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                     leader.complete(last_msg_seen.longValue());
+
+                                    election_decided = true;
 
                                     if(req_queue.size() > 0)
                                     {
@@ -416,6 +421,7 @@ public class SpreadMiddleware {
                                             e.printStackTrace();
                                         }
                                     }
+                                    election_decided = true;
                                 }
                             }
                         }
@@ -430,7 +436,7 @@ public class SpreadMiddleware {
                     MembershipInfo info = msg.getMembershipInfo();
 
                     if( info.isRegularMembership() ) {
-                        if ( info.isCausedByJoin() )
+                        if ( info.isCausedByJoin() && election_decided)
                         {   // store the list of servers in this group
                             SpreadGroup[] members = info.getMembers();
                             partner_queue.clear();
@@ -466,7 +472,7 @@ public class SpreadMiddleware {
                                     last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                             leader.complete(last_msg_seen.longValue());
                         }
-                        else if(info.isCausedByNetwork())
+                        else if(info.isCausedByNetwork() && election_decided)
                         {   // leader election
                             SpreadGroup[] members = msg.getGroups();
                             System.out.println("Members in this partition after transitional view: " + Arrays.toString(members));
@@ -502,7 +508,7 @@ public class SpreadMiddleware {
                                 is_utd = false;
                             }
                         }
-                        else if(info.isCausedByDisconnect() || info.isCausedByLeave())
+                        else if((info.isCausedByDisconnect() || info.isCausedByLeave()) && election_decided)
                         {
                             // If someone else left, we need to check if it's out turn to be the leader
 
