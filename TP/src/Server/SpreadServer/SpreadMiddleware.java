@@ -160,14 +160,6 @@ public class SpreadMiddleware {
                                             Address.class
                                         ).build();
 
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    System.out.println("Req queue size: " + req_queue.size());
-                    System.out.println("Unanswered req size: " + unanswered_reqs.size());
-                }
-            });
-
             this.sconn = new SpreadConnection();
             this.sconn.connect(InetAddress.getByName("localhost"), connect_to,
                     "server:" + port, false, true);
@@ -206,7 +198,7 @@ public class SpreadMiddleware {
                         {
                             // if anyone else sends a state transfer msg, it's ignored
                             if( !is_utd ) {
-                                System.out.println("Receiving full state transfer");
+                                //System.out.println("Receiving full state transfer");
                                 no_st = false;
 
                                 FullBankTransfer state_tr = s.decode(msg.getData());
@@ -225,7 +217,7 @@ public class SpreadMiddleware {
                         {
                             if( !is_utd )
                             {
-                                System.out.println("Receiving partial state transfer");
+                                //System.out.println("Receiving partial state transfer");
                                 no_st = false;
 
                                 List<Transaction> state_tr = s.decode(msg.getData());
@@ -247,7 +239,7 @@ public class SpreadMiddleware {
                         }
                         case state_transfer_request:
                         {
-                            System.out.println("History: " + history.size());
+                            //System.out.println("History: " + history.size());
                             // we should be careful not to process requests like these if we're not up to date
                             // or if we're the only member of the comm group, because that means we're the ones
                             // who sent it
@@ -335,7 +327,7 @@ public class SpreadMiddleware {
                                 last_msg_seen.incrementAndGet();
                                 transactions_completed.incrementAndGet();
 
-                                System.out.println("Leader informed me of a new client request");
+                                //System.out.println("Leader informed me of a new client request");
                             }
                             // if I am, we'll do something different...
                             else
@@ -362,13 +354,15 @@ public class SpreadMiddleware {
 
                             if(e.getCompleted_candidatures() == e.getPotencial_leaders().size())
                             {
-                                System.out.println("--- Election finished, leader is: " + e.getCurr_leader() + " ---");
+                                //System.out.println("--- Election finished, leader is: " + e.getCurr_leader() + "
+                                // ---");
                                 if(e.getCurr_leader().equals(sconn.getPrivateGroup().toString()))
                                 {   // I'm leader
 
                                     is_leader = true;
-                                    System.out.println("Message seen when I became leader(after transitional view:) " +
-                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    //System.out.println("Message seen when I became leader(after transitional view:)
+                                    // " +
+                                    //        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                     leader.complete(last_msg_seen.longValue());
 
                                     election_decided = true;
@@ -455,8 +449,8 @@ public class SpreadMiddleware {
                                 // thus informing the ServerSkeleton we are the Leader
                                 if( is_leader )
                                 {
-                                    System.out.println("Message seen when I became leader: " +
-                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    //System.out.println("Message seen when I became leader: " +
+                                    //        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                     leader.complete(last_msg_seen.longValue());
                                 }
 
@@ -466,14 +460,15 @@ public class SpreadMiddleware {
                         else if(info.isTransition() && is_leader)
                         {
                             is_leader = false;
-                            System.out.println("Message seen when I recieved transitional view: " +
-                                    last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                            //System.out.println("Message seen when I recieved transitional view: " +
+                            //        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                             leader.complete(last_msg_seen.longValue());
                         }
                         else if(info.isCausedByNetwork() && election_decided)
                         {   // leader election
                             SpreadGroup[] members = msg.getGroups();
-                            System.out.println("Members in this partition after transitional view: " + Arrays.toString(members));
+                            //System.out.println("Members in this partition after transitional view: " + Arrays
+                            // .toString(members));
 
                             if(members.length > TOTAL_MEMBERS/2)
                             {   // majority group
@@ -499,8 +494,8 @@ public class SpreadMiddleware {
                                 if(is_leader)
                                 {   // Not a member of majority and leader
                                     is_leader = false;
-                                    System.out.println("Message seen when I left as leader: " +
-                                            last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                    //System.out.println("Message seen when I left as leader: " +
+                                    //        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                     leader.complete(last_msg_seen.longValue());
                                 }
                                 is_utd = false;
@@ -518,8 +513,8 @@ public class SpreadMiddleware {
                             // If I'm the leader, I'll start receiving requests from client
                             if ( is_leader )
                             {
-                                System.out.println("Message seen when I became leader: " +
-                                        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
+                                //System.out.println("Message seen when I became leader: " +
+                                //        last_msg_seen.longValue() + " , " + transactions_completed.longValue());
                                 leader.complete(last_msg_seen.longValue());
                             }
                         }

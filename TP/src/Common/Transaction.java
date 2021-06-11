@@ -2,6 +2,8 @@ package Common;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class Transaction implements Serializable
 {
@@ -48,6 +50,27 @@ public class Transaction implements Serializable
 
     }
 
+    // MOVEMENT constructor (with type)
+    public Transaction(LocalDateTime time_created, int account_to, float amount, float amount_after, long req_id,
+                       long internal_id, short type)
+    {
+
+        this.account_to = account_to;
+        this.account_from = -1;
+
+        this.amount = amount;
+
+        this.amount_after_to = amount_after;
+        this.amount_after_from = -1;
+
+        this.type = type;
+        this.req_id = req_id;
+        this.internal_id = internal_id;
+
+        this.time_created = time_created;
+
+    }
+
     // TRANSFER constructor
     public Transaction(LocalDateTime time_created, int account_to, int account_from, float amount,
                        float amount_after_to, float amount_after_from, long req_id, long internal_id)
@@ -79,6 +102,26 @@ public class Transaction implements Serializable
         this.amount = -1.f;
 
         this.amount_after_to   = -1;
+        this.amount_after_from = -1;
+
+        this.type = INTEREST;
+        this.req_id = req_id;
+        this.internal_id = internal_id;
+
+        this.time_created = time_created;
+
+    }
+
+    // INTEREST constructor (with bal_after)
+    public Transaction(LocalDateTime time_created, long req_id, long internal_id, float bal_after)
+    {
+
+        this.account_to   = -1;
+        this.account_from = -1;
+
+        this.amount = -1.f;
+
+        this.amount_after_to   = bal_after;
         this.amount_after_from = -1;
 
         this.type = INTEREST;
@@ -133,17 +176,23 @@ public class Transaction implements Serializable
         {
             case MOVEMENT:
             {
-                sb.append("MOVEMENT (").append(this.req_id).append("): ").append(this.account_to).append(" (").append(this.amount).append("$)");
+                sb.append("MOVEMENT : ").append(this.amount).append("$ - ")
+                        .append(this.time_created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+                        .append(" -> ").append(this.amount_after_to).append("$");
                 break;
             }
             case TRANSFER:
             {
-                sb.append("TRANSFER (").append(this.req_id).append("): ").append(this.account_to).append(" (").append(this.amount).append("$)");
+                sb.append("TRANSFER : ").append(this.amount).append("$ - ")
+                        .append(this.time_created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+                        .append(" -> ").append(this.amount_after_to).append("$");
                 break;
             }
             case INTEREST:
             {
-                sb.append("INTEREST (").append(this.req_id).append(")");
+                sb.append("INTEREST - ")
+                        .append(this.time_created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+                        .append(" -> ").append(this.amount_after_to).append("$");
                 break;
             }
         }

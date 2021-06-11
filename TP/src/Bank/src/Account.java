@@ -74,7 +74,7 @@ public class Account implements Serializable
             balance += a;
         }
 
-        push(new Transaction(LocalDateTime.now(), this.account_id, a, this.balance, -1, -1));
+        push(new Transaction(LocalDateTime.now(), this.account_id, a, this.balance, -1, -1, type));
 
         lock.unlock();
 
@@ -98,7 +98,7 @@ public class Account implements Serializable
 
         this.balance += this.balance * interest;
 
-        this.push(new Transaction(LocalDateTime.now(), -1, -1));
+        this.push(new Transaction(LocalDateTime.now(), -1, -1, this.balance));
 
         this.lock.unlock();
     }

@@ -3,6 +3,7 @@ import Client.ClientStub;
 import Common.Input;
 import Common.Transaction;
 
+import java.io.IOException;
 import java.util.List;
 
 import static java.lang.System.exit;
@@ -12,8 +13,11 @@ public class BankClientGUI
 
     private BankInterface cs;
 
-    private void menu()
+    private void menu() throws IOException
     {
+        Runtime.getRuntime().exec("clear");
+
+
         System.out.println("--- BANK ---");
         System.out.println();
         System.out.println("1 - Balance");
@@ -23,7 +27,7 @@ public class BankClientGUI
         System.out.println("5 - History");
         System.out.println("6 - Leave");
         System.out.println();
-        System.out.print("Choose what you want to do:");
+        System.out.print("Choose what you want to do: ");
 
         int option = Input.lerInt();
         switch (option)
@@ -77,10 +81,13 @@ public class BankClientGUI
                 menu();
         }
         System.out.println();
+
+
+
         menu();
     }
 
-    public BankClientGUI(int port)
+    public BankClientGUI(int port) throws IOException
     {
         cs = new ClientStub(port);
 

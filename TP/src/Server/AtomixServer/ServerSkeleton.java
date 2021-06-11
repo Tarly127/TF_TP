@@ -84,7 +84,7 @@ public class ServerSkeleton{
             try
             {
                 last_msg_seen = fut_updated.get();
-                System.out.println("Updated: " + spread_gv.is_ready());
+                //System.out.println("Updated: " + spread_gv.is_ready());
 
 
                 if ( spread_gv.is_ready() )
@@ -163,7 +163,8 @@ public class ServerSkeleton{
 
                    LocalDateTime end = LocalDateTime.now();
                    LocalDateTime difference = LocalDateTime.from(start);
-                   System.out.println("--- Duration of movement(success): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+                   //System.out.println("--- Duration of movement(success): " + difference.until(end,
+                   //    ChronoUnit.MILLIS) + " seconds ---");
 
                    ms.sendAsync(a, "movement-res", s.encode(res_message));
 
@@ -183,7 +184,8 @@ public class ServerSkeleton{
 
             LocalDateTime end = LocalDateTime.now();
             LocalDateTime difference = LocalDateTime.from(start);
-            System.out.println("--- Duration of movement(failure): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+            //System.out.println("--- Duration of movement(failure): " + difference.until(end, ChronoUnit.MILLIS) + "
+            // seconds ---");
 
             // If the operation is a failure, we don't need to notify everyone else,
             // so we can reply to the request right away
@@ -206,7 +208,7 @@ public class ServerSkeleton{
 
         LocalDateTime end = LocalDateTime.now();
         LocalDateTime difference = LocalDateTime.from(start);
-        System.out.println("--- Duration of balance: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+        //System.out.println("--- Duration of balance: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
 
         // No point in warning everyone else about a BALANCE request, reply right away
         this.ms.sendAsync(a, "balance-res", this.s.encode(res_message));
@@ -247,7 +249,8 @@ public class ServerSkeleton{
 
                     LocalDateTime end = LocalDateTime.now();
                     LocalDateTime difference = LocalDateTime.from(start);
-                    System.out.println("--- Duration of transfer(success): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+                    //System.out.println("--- Duration of transfer(success): " + difference.until(end,
+                    //        ChronoUnit.MILLIS) + " seconds ---");
 
                     this.ms.sendAsync(a, "transfer-res", this.s.encode(res_message));
 
@@ -267,7 +270,8 @@ public class ServerSkeleton{
         {
             LocalDateTime end = LocalDateTime.now();
             LocalDateTime difference = LocalDateTime.from(start);
-            System.out.println("--- Duration of transfer(failure): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+            //System.out.println("--- Duration of transfer(failure): " + difference.until(end, ChronoUnit.MILLIS) + "
+            // seconds ---");
 
             // If the operation is a failure, we don't need to notify everyone else,
             // so we can reply to the request right away
@@ -289,7 +293,7 @@ public class ServerSkeleton{
 
         LocalDateTime end = LocalDateTime.now();
         LocalDateTime difference = LocalDateTime.from(start);
-        System.out.println("--- Duration of history: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+        //System.out.println("--- Duration of history: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
 
         // No point in warning everyone else about a HISTORY request, reply right away
         this.ms.sendAsync(a, "history-res", this.s.encode(res_message));
@@ -320,7 +324,8 @@ public class ServerSkeleton{
 
                 LocalDateTime end = LocalDateTime.now();
                 LocalDateTime difference = LocalDateTime.from(start);
-                System.out.println("--- Duration of interest: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+                //System.out.println("--- Duration of interest: " + difference.until(end, ChronoUnit.MILLIS) + " " +
+                //        "seconds ---");
 
                 this.ms.sendAsync(a, "interest-res", this.s.encode(res_message));
 
@@ -375,7 +380,7 @@ public class ServerSkeleton{
             out.flush();
             out.close();
 
-            System.out.println("Stored my own state before death (" + tc + ")");
+            //System.out.println("Stored my own state before death (" + tc + ")");
         }
         catch(IOException e){
             e.printStackTrace();
@@ -426,7 +431,7 @@ public class ServerSkeleton{
         try
         {
             last_msg_seen = fut_leader.get();
-            System.out.println("Leader: " + spread_gv.is_ready());
+            //System.out.println("Leader: " + spread_gv.is_ready());
             if (spread_gv.is_ready())
                 start_atomix();
 
