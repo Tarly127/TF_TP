@@ -1,6 +1,6 @@
 package Bank.include;
 
-import Other.Transaction;
+import Common.Transaction;
 
 import java.util.List;
 

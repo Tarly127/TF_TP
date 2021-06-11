@@ -1,4 +1,4 @@
-package Messages;
+package Common.Messages;
 
 public class ReqMessage {
     private int accountId;

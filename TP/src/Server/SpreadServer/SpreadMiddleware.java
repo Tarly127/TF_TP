@@ -2,8 +2,7 @@ package Server.SpreadServer;
 
 import Bank.src.Account;
 import Bank.src.Bank;
-import Other.Election;
-import Other.Transaction;
+import Common.Transaction;
 import Server.DataPackets.LockFreeAccount;
 import Server.DataPackets.LockFreeBank;
 import io.atomix.utils.net.Address;

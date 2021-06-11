@@ -1,8 +1,7 @@
 package Server.DataPackets;
 
 import Bank.src.Account;
-import Bank.src.Bank;
-import Other.Transaction;
+import Common.Transaction;
 
 import java.util.LinkedList;
 import java.util.Queue;

@@ -1,9 +1,10 @@
 package Client;
 
 import Bank.include.BankInterface;
-import Messages.ReqMessage;
-import Messages.ResMessage;
-import Other.Transaction;
+import Common.Input;
+import Common.Messages.ReqMessage;
+import Common.Messages.ResMessage;
+import Common.Transaction;
 import io.atomix.cluster.messaging.MessagingConfig;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;
 import io.atomix.utils.net.Address;
@@ -177,77 +178,6 @@ public class ClientStub implements BankInterface
         }, this.es);
 
         this.ms.start();
-
-        menu();
-    }
-
-    // MENU
-    public void menu()
-    {
-        System.out.println("--- BANK ---");
-        System.out.println();
-        System.out.println("1 - Balance");
-        System.out.println("2 - Movement");
-        System.out.println("3 - Transfer");
-        System.out.println("4 - Interest");
-        System.out.println("5 - History");
-        System.out.println("6 - Leave");
-        System.out.println();
-        System.out.print("Choose what you want to do:");
-
-        int option = Input.lerInt();
-        switch (option)
-        {
-            case 1 : {
-                System.out.print("AccountID: ");
-                int accountID = Input.lerInt();
-                float x = balance(accountID);
-                System.out.println("\n--- BALANCE: " + x + " ---");
-                break;
-            }
-            case 2 : {
-                System.out.print("AccountID: ");
-                int accountID = Input.lerInt();
-                System.out.print("Amount: ");
-                float amount = Input.lerFloat();
-                boolean x = movement(accountID, amount);
-                System.out.println("\n--- MOVEMENT result: " + x + " ---");
-                break;
-            }
-            case 3 : {
-                System.out.print("From: ");
-                int from = Input.lerInt();
-                System.out.print("To: ");
-                int to = Input.lerInt();
-                System.out.print("Amount: ");
-                int amount = Input.lerInt();
-                boolean x = transfer(from, to, amount);
-                System.out.println("\n--- TRANSFER result: " + x + " ---");
-                break;
-            }
-            case 4 : {
-                interest();
-                break;
-            }
-            case 5 : {
-                System.out.print("AccountID: ");
-                int accountID = Input.lerInt();
-                List<Transaction> x = history(accountID);
-                System.out.println("--- HISTORY ---");
-                for(Transaction t : x)
-                    System.out.println(t.toString());
-                break;
-            }
-            case 6 : {
-                System.out.println("\n--- Leaving bank ---");
-                exit(0);
-                break;
-            }
-            default:
-                menu();
-        }
-        System.out.println();
-        menu();
     }
 
     // BALANCE  (accountId) -> float

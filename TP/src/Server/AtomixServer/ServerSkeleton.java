@@ -1,9 +1,9 @@
 package Server.AtomixServer;
 
 import Bank.src.Bank;
-import Messages.ReqMessage;
-import Messages.ResMessage;
-import Other.Transaction;
+import Common.Messages.ReqMessage;
+import Common.Messages.ResMessage;
+import Common.Transaction;
 import Server.SpreadServer.SpreadMiddleware;
 import io.atomix.cluster.messaging.MessagingConfig;
 import io.atomix.cluster.messaging.impl.NettyMessagingService;

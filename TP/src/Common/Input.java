@@ -1,4 +1,4 @@
-package Client;
+package Common;
 
 /**
  * Classe que abstrai a utilização da classe Scanner, escondendo todos os

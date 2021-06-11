@@ -1,4 +1,4 @@
-package Messages;
+package Common.Messages;
 
 public class ResMessage<T> {
     private int reqId;

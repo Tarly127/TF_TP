@@ -1,4 +1,4 @@
-package Other;
+package Server.SpreadServer;
 
 import spread.SpreadGroup;
 

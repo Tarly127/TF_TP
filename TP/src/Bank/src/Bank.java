@@ -1,7 +1,7 @@
 package Bank.src;
 
 import Bank.include.BankInterface;
-import Other.Transaction;
+import Common.Transaction;
 import Server.DataPackets.LockFreeAccount;
 import Server.DataPackets.LockFreeBank;
 

@@ -1,6 +1,6 @@
 package Bank.src;
 
-import Other.Transaction;
+import Common.Transaction;
 import Server.DataPackets.LockFreeAccount;
 
 import java.io.Serializable;
