@@ -26,7 +26,7 @@ public class Bank implements BankInterface, Serializable
         }
     }
 
-    public void update(LockFreeBank lfb)
+    public void    update(LockFreeBank lfb)
     {
         this.interest = lfb.getInterest();
         for(Map.Entry<Integer, LockFreeAccount> e : lfb.getAccounts().entrySet())
@@ -49,7 +49,7 @@ public class Bank implements BankInterface, Serializable
     }
 
     public boolean movement(int accountID, float ammount)
-    {
+      {
         boolean flag = false;
 
         if( this.accounts.containsKey(accountID) )

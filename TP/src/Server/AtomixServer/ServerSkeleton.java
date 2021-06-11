@@ -11,8 +11,10 @@ import io.atomix.utils.net.Address;
 import io.atomix.utils.serializer.Serializer;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 public class ServerSkeleton{
@@ -32,6 +34,7 @@ public class ServerSkeleton{
     private SpreadMiddleware spread_gv;
     private Bank Bank;
 
+    private AtomicLong reqs_completed;  // requests completed
 
     public ServerSkeleton(int port, int connect_to)
     {
@@ -48,6 +51,8 @@ public class ServerSkeleton{
 
         this.Bank            = new Bank(ServerSkeleton.INTEREST);
         this.ms              = null;
+
+        this.reqs_completed = new AtomicLong(0);
 
         try
         {
@@ -70,7 +75,7 @@ public class ServerSkeleton{
         // Deal with the Leader
         this.es.submit(() ->
         {
-
+            listen_for_leader();
         });
 
         // Deal with Group Join Update
@@ -79,6 +84,8 @@ public class ServerSkeleton{
             try
             {
                 last_msg_seen = fut_updated.get();
+                System.out.println("Updated: " + spread_gv.is_ready());
+
 
                 if ( spread_gv.is_ready() )
                     start_atomix();
@@ -102,6 +109,10 @@ public class ServerSkeleton{
                 store_state();
             }
         });
+/*
+       ses.scheduleAtFixedRate(()->{
+            System.out.println("Débito: " + reqs_completed.longValue() + " pedidos por segundo");
+        },0,1, TimeUnit.SECONDS);
 
         ses.scheduleAtFixedRate(() -> {
             //if(spread_gv.is_ready())
@@ -111,7 +122,7 @@ public class ServerSkeleton{
             System.out.println("Account 1 balance: " + Bank.balance(1) + "$");
             //System.out.println("Account 2 balance: " + Bank.balance(2) + "$");
             //System.out.println("I've seen " + last_msg_seen + " messages");
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS); */
     }
 
     public void show(int accountID){
@@ -123,7 +134,7 @@ public class ServerSkeleton{
     private void movement_handler(Address a, byte[] m)
     {
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = LocalDateTime.now();
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -137,9 +148,7 @@ public class ServerSkeleton{
 
         ResMessage<Boolean> res_message = new ResMessage<>(req_id,flag);
 
-        //System.out.println("Movement");
-
-        Transaction t = new Transaction(now, accountId, amount, bal_after, req_id, -1);
+        Transaction t = new Transaction(start, accountId, amount, bal_after, req_id, -1);
 
         if( flag )
         {
@@ -152,7 +161,13 @@ public class ServerSkeleton{
                {
                    cf.get();
 
+                   LocalDateTime end = LocalDateTime.now();
+                   LocalDateTime difference = LocalDateTime.from(start);
+                   System.out.println("--- Duration of movement(success): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
                    ms.sendAsync(a, "movement-res", s.encode(res_message));
+
+                   reqs_completed.incrementAndGet();
                }
                catch (InterruptedException | ExecutionException e)
                {
@@ -165,6 +180,11 @@ public class ServerSkeleton{
 
         }
         else {
+
+            LocalDateTime end = LocalDateTime.now();
+            LocalDateTime difference = LocalDateTime.from(start);
+            System.out.println("--- Duration of movement(failure): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
             // If the operation is a failure, we don't need to notify everyone else,
             // so we can reply to the request right away
             this.ms.sendAsync(a, "movement-res", this.s.encode(res_message));
@@ -173,6 +193,8 @@ public class ServerSkeleton{
 
     private void balance_handler (Address a, byte[] m)
     {
+        LocalDateTime start = LocalDateTime.now();
+
         ReqMessage req_msg = this.s.decode(m);
 
         int accountId = req_msg.getAccountId();
@@ -182,14 +204,20 @@ public class ServerSkeleton{
 
         ResMessage<Float> res_message = new ResMessage<>(req_id,cap);
 
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime difference = LocalDateTime.from(start);
+        System.out.println("--- Duration of balance: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
         // No point in warning everyone else about a BALANCE request, reply right away
         this.ms.sendAsync(a, "balance-res", this.s.encode(res_message));
+
+        reqs_completed.incrementAndGet();
 
     }
 
     private void transfer_handler(Address a, byte[] m)
     {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = LocalDateTime.now();
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -205,7 +233,7 @@ public class ServerSkeleton{
 
         ResMessage<Boolean> res_message = new ResMessage<>(req_id,flag);
 
-        Transaction t = new Transaction(now, to_accountId, accountId, amount, bal_after_to, bal_after_from, req_id,
+        Transaction t = new Transaction(start, to_accountId, accountId, amount, bal_after_to, bal_after_from, req_id,
                 -1);
 
         if( flag )
@@ -217,7 +245,14 @@ public class ServerSkeleton{
                 try{
                     cf.get();
 
+                    LocalDateTime end = LocalDateTime.now();
+                    LocalDateTime difference = LocalDateTime.from(start);
+                    System.out.println("--- Duration of transfer(success): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
                     this.ms.sendAsync(a, "transfer-res", this.s.encode(res_message));
+
+                    reqs_completed.incrementAndGet();
+
                 }catch (InterruptedException | ExecutionException e )
                 {
                     e.printStackTrace();
@@ -230,6 +265,10 @@ public class ServerSkeleton{
         }
         else
         {
+            LocalDateTime end = LocalDateTime.now();
+            LocalDateTime difference = LocalDateTime.from(start);
+            System.out.println("--- Duration of transfer(failure): " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
             // If the operation is a failure, we don't need to notify everyone else,
             // so we can reply to the request right away
             this.ms.sendAsync(a, "movement-res", this.s.encode(res_message));
@@ -238,6 +277,7 @@ public class ServerSkeleton{
 
     private void history_handler (Address a, byte[] m)
     {
+        LocalDateTime start = LocalDateTime.now();
         ReqMessage req_msg = this.s.decode(m);
 
         int accountId = req_msg.getAccountId();
@@ -247,13 +287,20 @@ public class ServerSkeleton{
 
         ResMessage<List<Transaction>> res_message = new ResMessage<>(req_id, lt);
 
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime difference = LocalDateTime.from(start);
+        System.out.println("--- Duration of history: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
         // No point in warning everyone else about a HISTORY request, reply right away
         this.ms.sendAsync(a, "history-res", this.s.encode(res_message));
+
+        reqs_completed.incrementAndGet();
+
     }
 
     private void interest_handler(Address a, byte[] m)
     {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = LocalDateTime.now();
 
         ReqMessage req_msg = this.s.decode(m);
 
@@ -263,7 +310,7 @@ public class ServerSkeleton{
 
         ResMessage<Void> res_message = new ResMessage<>(req_id);
 
-        Transaction t = new Transaction(now, req_id, -1);
+        Transaction t = new Transaction(start, req_id, -1);
 
         CompletableFuture<Long> cf = new CompletableFuture<>();
 
@@ -271,7 +318,13 @@ public class ServerSkeleton{
             try{
                 cf.get();
 
+                LocalDateTime end = LocalDateTime.now();
+                LocalDateTime difference = LocalDateTime.from(start);
+                System.out.println("--- Duration of interest: " + difference.until(end, ChronoUnit.MILLIS) + " seconds ---");
+
                 this.ms.sendAsync(a, "interest-res", this.s.encode(res_message));
+
+                reqs_completed.incrementAndGet();
 
             }
             catch (InterruptedException | ExecutionException e )
@@ -335,20 +388,29 @@ public class ServerSkeleton{
 
     private void start_atomix()
     {
-        if(ms == null)
-        {
+        if(ms == null) {
             ms = new NettyMessagingService("ServerSkeleton", Address.from("localhost", REQ_PORT), new MessagingConfig());
 
-            ms.registerHandler("movement-req", (a,m) -> { movement_handler(a,m); }, es);
-            ms.registerHandler("balance-req",  (a,m) -> { balance_handler (a,m); }, es);
-            ms.registerHandler("transfer-req", (a,m) -> { transfer_handler(a,m); }, es);
-            ms.registerHandler("history-req",  (a,m) -> { history_handler (a,m); }, es);
-            ms.registerHandler("interest-req", (a,m) -> { interest_handler(a,m); }, es);
+            ms.registerHandler("movement-req", (a, m) -> {
+                movement_handler(a, m);
+            }, es);
+            ms.registerHandler("balance-req", (a, m) -> {
+                balance_handler(a, m);
+            }, es);
+            ms.registerHandler("transfer-req", (a, m) -> {
+                transfer_handler(a, m);
+            }, es);
+            ms.registerHandler("history-req", (a, m) -> {
+                history_handler(a, m);
+            }, es);
+            ms.registerHandler("interest-req", (a, m) -> {
+                interest_handler(a, m);
+            }, es);
+        }
 
             ms.start();
 
             System.out.println("Server listening on port " + REQ_PORT + "...");
-        }
     }
 
     private void stop_atomix()
@@ -356,12 +418,6 @@ public class ServerSkeleton{
         if(ms != null)
         {
             ms.stop();
-
-            ms.unregisterHandler("movement-req");
-            ms.unregisterHandler("balance-req" );
-            ms.unregisterHandler("transfer-req");
-            ms.unregisterHandler("history-req" );
-            ms.unregisterHandler("interest-req");
         }
     }
 
@@ -370,7 +426,7 @@ public class ServerSkeleton{
         try
         {
             last_msg_seen = fut_leader.get();
-
+            System.out.println("Leader: " + spread_gv.is_ready());
             if (spread_gv.is_ready())
                 start_atomix();
 

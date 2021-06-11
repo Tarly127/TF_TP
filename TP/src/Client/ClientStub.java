@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static java.lang.System.exit;
+
 
 public class ClientStub implements BankInterface
 {
@@ -176,6 +178,76 @@ public class ClientStub implements BankInterface
 
         this.ms.start();
 
+        menu();
+    }
+
+    // MENU
+    public void menu()
+    {
+        System.out.println("--- BANK ---");
+        System.out.println();
+        System.out.println("1 - Balance");
+        System.out.println("2 - Movement");
+        System.out.println("3 - Transfer");
+        System.out.println("4 - Interest");
+        System.out.println("5 - History");
+        System.out.println("6 - Leave");
+        System.out.println();
+        System.out.print("Choose what you want to do:");
+
+        int option = Input.lerInt();
+        switch (option)
+        {
+            case 1 : {
+                System.out.print("AccountID: ");
+                int accountID = Input.lerInt();
+                float x = balance(accountID);
+                System.out.println("\n--- BALANCE: " + x + " ---");
+                break;
+            }
+            case 2 : {
+                System.out.print("AccountID: ");
+                int accountID = Input.lerInt();
+                System.out.print("Amount: ");
+                float amount = Input.lerFloat();
+                boolean x = movement(accountID, amount);
+                System.out.println("\n--- MOVEMENT result: " + x + " ---");
+                break;
+            }
+            case 3 : {
+                System.out.print("From: ");
+                int from = Input.lerInt();
+                System.out.print("To: ");
+                int to = Input.lerInt();
+                System.out.print("Amount: ");
+                int amount = Input.lerInt();
+                boolean x = transfer(from, to, amount);
+                System.out.println("\n--- TRANSFER result: " + x + " ---");
+                break;
+            }
+            case 4 : {
+                interest();
+                break;
+            }
+            case 5 : {
+                System.out.print("AccountID: ");
+                int accountID = Input.lerInt();
+                List<Transaction> x = history(accountID);
+                System.out.println("--- HISTORY ---");
+                for(Transaction t : x)
+                    System.out.println(t.toString());
+                break;
+            }
+            case 6 : {
+                System.out.println("\n--- Leaving bank ---");
+                exit(0);
+                break;
+            }
+            default:
+                menu();
+        }
+        System.out.println();
+        menu();
     }
 
     // BALANCE  (accountId) -> float
@@ -209,7 +281,7 @@ public class ClientStub implements BankInterface
     }
 
     // MOVEMENT (accountId, amount) -> boolean
-    public boolean movement(int accountID, float ammount)
+    public boolean movement(int accountID, float amount)
     {
         try
         {
@@ -217,7 +289,7 @@ public class ClientStub implements BankInterface
             fut_mov.completeOnTimeout(null, ClientStub.TIMEOUT_LIMIT, TimeUnit.SECONDS);
 
             int reqId = this.lastReq++;
-            ReqMessage msg = new ReqMessage(accountID, Transaction.MOVEMENT, reqId, ammount);
+            ReqMessage msg = new ReqMessage(accountID, Transaction.MOVEMENT, reqId, amount);
 
 
             this.movement_requests.put(reqId, fut_mov);
@@ -242,7 +314,7 @@ public class ClientStub implements BankInterface
     }
 
     // SET      (accountId, amount) -> void
-    public void    set(int accountID, float ammount)
+    public void    set(int accountID, float amount)
     {
 
         // This is only here because I set it as a member of the interface of the Bank, and since ClientSub is an

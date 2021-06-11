@@ -14,16 +14,15 @@ public class BankClient {
     public static void main(String args[])
     {
         BankInterface bank = new ClientStub(Integer.parseInt(args[0]));
-
-        for(int i = 0; i < 10; i++)
+/*
+        for(int i = 0; i < 1000; i++)
         {
             try
             {
-                bank.movement(1,1);
-                Thread.sleep(6000);
+                bank.interest();
                 System.out.println("Ended request " + i);
             }
-            catch (NullPointerException | InterruptedException e)
+            catch (NullPointerException e)
             {
                 System.out.println("Timed out on " + i + ";");
             }
@@ -41,7 +40,6 @@ public class BankClient {
             System.out.println("Timed out on BALANCE request!");
         }
 
-
-        exit(0);
+        exit(0); */
     }
 }

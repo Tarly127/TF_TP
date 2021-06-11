@@ -2,7 +2,6 @@ package Server.SpreadServer;
 
 import Bank.src.Account;
 import Bank.src.Bank;
-import Messages.ReqMessage;
 import Other.Election;
 import Other.Transaction;
 import Server.DataPackets.LockFreeAccount;
@@ -319,8 +318,8 @@ public class SpreadMiddleware {
                         }
                         case state_update:
                         {
-                            // state updates only matter if they come from the leader and I'm not it.
-                            if( !is_leader )
+                            // state updates only matter if they come from the leader and I'm not it. Also, if election was already decided
+                            if( !is_leader && election_decided)
                             {
                                 // If I'm not the leader, I don't have to worry about concurrency control
 

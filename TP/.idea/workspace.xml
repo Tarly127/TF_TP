@@ -457,26 +457,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="418" y="172" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623246210000" />
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623281750972">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2" timestamp="1623388373021">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623281750972" />
-    <state width="1570" height="330" key="GridCell.Tab.0.bottom" timestamp="1623282945053">
+    <state x="495" y="61" width="919" height="910" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1623388373021" />
+    <state width="1570" height="313" key="GridCell.Tab.0.bottom" timestamp="1623388373045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="330" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945053" />
-    <state width="1570" height="330" key="GridCell.Tab.0.center" timestamp="1623282945052">
+    <state width="1570" height="313" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623388373045" />
+    <state width="1570" height="313" key="GridCell.Tab.0.center" timestamp="1623388373045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="330" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945052" />
-    <state width="1570" height="330" key="GridCell.Tab.0.left" timestamp="1623282945051">
+    <state width="1570" height="313" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623388373045" />
+    <state width="1570" height="313" key="GridCell.Tab.0.left" timestamp="1623388373045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="330" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945051" />
-    <state width="1570" height="330" key="GridCell.Tab.0.right" timestamp="1623282945052">
+    <state width="1570" height="313" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623388373045" />
+    <state width="1570" height="313" key="GridCell.Tab.0.right" timestamp="1623388373045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1570" height="330" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623282945052" />
+    <state width="1570" height="313" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623388373045" />
     <state x="315" y="0" width="1280" height="1035" key="SettingsEditor" timestamp="1623195756798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -499,10 +499,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/atomix$SingleClientA.ic" NAME="SingleClientA Coverage Results" MODIFIED="1623246815467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$Server_B.ic" NAME="Server_B Coverage Results" MODIFIED="1622932265390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/atomix$SingleClientB.ic" NAME="SingleClientB Coverage Results" MODIFIED="1615229105002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/atomix$Server_A.ic" NAME="Server_A Coverage Results" MODIFIED="1622994385367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/atomix$SingleClientB.ic" NAME="SingleClientB Coverage Results" MODIFIED="1615229105002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/atomix$SingleClientA.ic" NAME="SingleClientA Coverage Results" MODIFIED="1623246815467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Server/AtomixServer/ServerSkeleton.java">
